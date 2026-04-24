@@ -29,179 +29,178 @@ const jsPsych = initJsPsych({
  * percentages relative to the screenshot container. If no overlay is
  * provided, a default small box will be used.
  */
+/*
+ * Cue labeling convention (for data analysis):
+ *   ally_portrait / enemy_portrait  — champion pool panels (left = ally in LoL HUD)
+ *   ally_items / enemy_items        — item builds in the tab scoreboard
+ *   ally_health_N / enemy_health_N  — individual HP bars numbered per trial
+ *   scoreboard                      — top-center kill score
+ *   minimap                         — bottom-right minimap
+ *
+ * Each stimulus includes `ally_side` ('blue' or 'red') so analysts know
+ * which in-game side corresponds to "ally" for that trial.
+ *
+ * reveal_group determines what gets revealed together on a single click:
+ *   'ally_portrait'  — both portrait strips at once (or split if desired)
+ *   'enemy_portrait'
+ *   'ally_items'
+ *   'enemy_items'
+ *   'ally_health'    — all ally HP bars at once
+ *   'enemy_health'   — all enemy HP bars at once
+ */
 const stimuli = [
   {
     id: 'trial1',
     screenshot: 'assets/screenshot1.png',
+    ally_side: 'blue',
     role_prompt: 'You are the blue-side shotcaller. What would you call here?',
     baseline: {
       description:
-        'Champion identities, lane positions, minion wave state, turrets and terrain are visible. Health bars are shown on the champions.'
+        'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
     },
     cues: [
-      {
-        id: 'blue_champ_portrait',
-        label: 'Blue Champion Portrait',
-        reveal_group: 'champ_portrait',
-        overlay: { top: '11.34%', left: '0.00%', width: '4.99%', height: '47.83%' }
-      },
-      {
-        id: 'red_champ_portrait',
-        label: 'Red Champion Portrait',
-        reveal_group: 'champ_portrait',
-        overlay: { top: '12.43%', left: '93.31%', width: '6.37%', height: '45.95%' }
-      },
-      {
-        id: 'blue_items',
-        label: 'Blue Items',
-        reveal_group: 'blue_items_group',
-        overlay: { top: '79.35%', left: '29.64%', width: '17.54%', height: '20.22%' }
-      },
-      {
-        id: 'red_items',
-        label: 'Red Items',
-        reveal_group: 'red_items_group',
-        overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' }
-      },
-      {
-        id: 'blue_ad_hp',
-        label: 'HP',
-        reveal_group: 'health_cluster',
-        overlay: { top: '41.99%', left: '44.19%', width: '7.82%', height: '2.38%' }
-      },
-      {
-        id: 'blue_sup_hp',
-        label: 'HP',
-        reveal_group: 'health_cluster',
-        overlay: { top: '52.74%', left: '45.81%', width: '8.86%', height: '3.00%' }
-      },
-      {
-        id: 'red_jg_hp',
-        label: 'HP',
-        reveal_group: 'health_cluster',
-        overlay: { top: '7.73%', left: '28.66%', width: '7.12%', height: '1.76%' }
-      },
-      {
-        id: 'red_ad_hp',
-        label: 'HP',
-        reveal_group: 'health_cluster',
-        overlay: { top: '21.59%', left: '79.07%', width: '6.66%', height: '3.41%' }
-      },
-      {
-        id: 'red_sup_hp',
-        label: 'HP',
-        reveal_group: 'health_cluster',
-        overlay: { top: '20.73%', left: '62.38%', width: '9.32%', height: '2.79%' }
-      },
-      {
-        id: 'scoreboard',
-        label: 'Scoreboard',
-        overlay: { top: '0.62%', left: '22.03%', width: '56.73%', height: '4.03%' }
-      },
-      {
-        id: 'minimap',
-        label: 'Minimap',
-        overlay: { top: '74.04%', left: '83.71%', width: '15.58%', height: '25.53%' }
-      },
+      { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.36%', left: '0.00%', width: '4.87%', height: '47.51%' } },
+      { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '12.46%', left: '95.48%', width: '4.66%', height: '47.27%' } },
+      { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.48%', left: '31.35%', width: '16.28%', height: '20.26%' } },
+      { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
+      { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '41.99%', left: '44.19%', width: '7.82%', height: '2.38%' } },
+      { id: 'enemy_health_2', label: 'Enemy HP 2', reveal_group: 'enemy_health', overlay: { top: '52.78%', left: '45.81%', width: '7.15%', height: '2.60%' } },
+      { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '7.73%', left: '28.66%', width: '7.12%', height: '1.76%' } },
+      { id: 'ally_health_2', label: 'Ally HP 2', reveal_group: 'ally_health', overlay: { top: '22.62%', left: '78.96%', width: '6.77%', height: '2.40%' } },
+      { id: 'ally_health_3', label: 'Ally HP 3', reveal_group: 'ally_health', overlay: { top: '20.77%', left: '63.18%', width: '7.61%', height: '3.00%' } },
+      { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
+      { id: 'minimap', label: 'Minimap', overlay: { top: '74.04%', left: '83.71%', width: '15.58%', height: '25.53%' } }
     ]
   },
   {
     id: 'trial2',
     screenshot: 'assets/screenshot2.png',
-    role_prompt: '',
+    ally_side: 'blue',
+    role_prompt: 'You are the blue-side shotcaller. What would you call here?',
     baseline: {
       description:
-        'Your team composition, lane positioning and current health are shown. Turrets and minion waves are visible. Focus on map awareness when making your call.'
+        'Your team composition, lane positioning and current health are shown. Turrets and minion waves are visible.'
     },
     cues: [
-      {
-        id: 'blue_champ_portrait',
-        label: 'Blue Champion Portrait',
-        reveal_group: 'champ_portrait',
-        overlay: { top: '11.56%', left: '0.23%', width: '4.99%', height: '47.83%' }
-      },
-      {
-        id: 'red_champ_portrait',
-        label: 'Red Champion Portrait',
-        reveal_group: 'champ_portrait',
-        overlay: { top: '13.88%', left: '93.40%', width: '6.37%', height: '45.95%' }
-      },
-      {
-        id: 'blue_items',
-        label: 'Blue Items',
-        reveal_group: 'blue_items_group',
-        overlay: { top: '79.35%', left: '29.64%', width: '17.54%', height: '20.22%' }
-      },
-      {
-        id: 'red_items',
-        label: 'Red Items',
-        reveal_group: 'red_items_group',
-        overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' }
-      },
-      {
-        id: 'blue_top_hp2',
-        label: 'HP',
-        reveal_group: 'health_cluster',
-        overlay: { top: '44.74%', left: '23.79%', width: '6.89%', height: '2.17%' }
-      },
-      {
-        id: 'blue_jg_hp2',
-        label: 'HP',
-        reveal_group: 'health_cluster',
-        overlay: { top: '21.64%', left: '80.92%', width: '7.82%', height: '2.38%' }
-      },
-      {
-        id: 'blue_ad_hp2',
-        label: 'HP',
-        reveal_group: 'health_cluster',
-        overlay: { top: '89.45%', left: '16.50%', width: '7.82%', height: '2.38%' }
-      },
-      {
-        id: 'blue_sup_hp2',
-        label: 'HP',
-        reveal_group: 'health_cluster',
-        overlay: { top: '50.19%', left: '39.32%', width: '7.82%', height: '1.97%' }
-      },
-      {
-        id: 'red_top_hp2',
-        label: 'HP',
-        reveal_group: 'health_cluster',
-        overlay: { top: '22.58%', left: '47.55%', width: '7.12%', height: '1.76%' }
-      },
-      {
-        id: 'red_jg_hp2',
-        label: 'HP',
-        reveal_group: 'health_cluster',
-        overlay: { top: '15.79%', left: '44.41%', width: '6.54%', height: '1.55%' }
-      },
-      {
-        id: 'red_mid_hp2',
-        label: 'HP',
-        reveal_group: 'health_cluster',
-        overlay: { top: '53.82%', left: '66.20%', width: '6.54%', height: '2.17%' }
-      },
-      {
-        id: 'red_ad_hp2',
-        label: 'HP',
-        reveal_group: 'health_cluster',
-        overlay: { top: '22.70%', left: '43.49%', width: '7.12%', height: '2.59%' }
-      },
-      {
-        id: 'red_sup_hp2',
-        label: 'HP',
-        reveal_group: 'health_cluster',
-        overlay: { top: '25.28%', left: '48.36%', width: '7.81%', height: '1.76%' }
-      },
-      {
-        id: 'scoreboard2',
-        label: 'Scoreboard',
-        overlay: { top: '0.62%', left: '22.03%', width: '56.73%', height: '4.03%' }
-      },
-      {
-        id: 'minimap',
-        label: 'Minimap',
-        overlay: { top: '74.04%', left: '83.71%', width: '15.58%', height: '25.53%' }
-      }
+      { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.56%', left: '0.23%', width: '4.43%', height: '47.46%' } },
+      { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '11.75%', left: '95.28%', width: '4.48%', height: '48.01%' } },
+      { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.19%', left: '30.19%', width: '17.54%', height: '20.22%' } },
+      { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
+      { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '15.55%', left: '44.46%', width: '6.89%', height: '2.17%' } },
+      { id: 'enemy_health_2', label: 'Enemy HP 2', reveal_group: 'enemy_health', overlay: { top: '22.84%', left: '43.59%', width: '7.82%', height: '2.38%' } },
+      { id: 'enemy_health_3', label: 'Enemy HP 3', reveal_group: 'enemy_health', overlay: { top: '24.08%', left: '48.28%', width: '7.82%', height: '2.38%' } },
+      { id: 'enemy_health_4', label: 'Enemy HP 4', reveal_group: 'enemy_health', overlay: { top: '22.19%', left: '48.10%', width: '7.04%', height: '2.17%' } },
+      { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '50.27%', left: '40.21%', width: '7.12%', height: '1.76%' } },
+      { id: 'ally_health_2', label: 'Ally HP 2', reveal_group: 'ally_health', overlay: { top: '21.92%', left: '81.63%', width: '6.54%', height: '1.55%' } },
+      { id: 'ally_health_3', label: 'Ally HP 3', reveal_group: 'ally_health', overlay: { top: '53.82%', left: '66.20%', width: '6.54%', height: '2.17%' } },
+      { id: 'ally_health_4', label: 'Ally HP 4', reveal_group: 'ally_health', overlay: { top: '90.31%', left: '16.71%', width: '7.12%', height: '2.59%' } },
+      { id: 'ally_health_5', label: 'Ally HP 5', reveal_group: 'ally_health', overlay: { top: '45.07%', left: '23.13%', width: '7.81%', height: '1.76%' } },
+      { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
+      { id: 'minimap', label: 'Minimap', overlay: { top: '74.04%', left: '83.71%', width: '15.58%', height: '25.53%' } }
+    ]
+  },
+  {
+    id: 'trial3',
+    screenshot: 'assets/screenshot3.png',
+    ally_side: 'blue',
+    role_prompt: 'You are the blue-side shotcaller. What would you call here?',
+    baseline: {
+      description:
+        'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
+    },
+    cues: [
+      { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '12.33%', left: '0.00%', width: '4.77%', height: '46.86%' } },
+      { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '12.44%', left: '95.42%', width: '4.26%', height: '46.98%' } },
+      { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.43%', left: '31.19%', width: '16.20%', height: '19.65%' } },
+      { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
+      { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '33.56%', left: '47.33%', width: '7.50%', height: '2.50%' } },
+      { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '44.42%', left: '41.50%', width: '7.50%', height: '2.50%' } },
+      { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
+      { id: 'minimap', label: 'Minimap', overlay: { top: '74.10%', left: '84.93%', width: '14.36%', height: '25.35%' } }
+    ]
+  },
+  {
+    id: 'trial4',
+    screenshot: 'assets/screenshot4.png',
+    ally_side: 'blue',
+    role_prompt: 'You are the blue-side shotcaller. What would you call here?',
+    baseline: {
+      description:
+        'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
+    },
+    cues: [
+      { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.34%', left: '0.00%', width: '4.99%', height: '47.83%' } },
+      { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '12.44%', left: '95.31%', width: '4.37%', height: '46.56%' } },
+      { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.39%', left: '29.64%', width: '17.87%', height: '20.03%' } },
+      { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
+      { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '54.50%', left: '43.50%', width: '7.50%', height: '2.50%' } },
+      { id: 'ally_health_2', label: 'Ally HP 2', reveal_group: 'ally_health', overlay: { top: '33.02%', left: '37.94%', width: '7.50%', height: '2.50%' } },
+      { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '38.70%', left: '53.20%', width: '7.50%', height: '2.50%' } },
+      { id: 'enemy_health_2', label: 'Enemy HP 2', reveal_group: 'enemy_health', overlay: { top: '54.50%', left: '47.70%', width: '7.50%', height: '2.50%' } },
+      { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
+      { id: 'minimap', label: 'Minimap', overlay: { top: '74.07%', left: '85.71%', width: '13.58%', height: '26.13%' } }
+    ]
+  },
+  {
+    id: 'trial5',
+    screenshot: 'assets/screenshot5.png',
+    ally_side: 'blue',
+    role_prompt: 'You are the blue-side shotcaller. What would you call here?',
+    baseline: {
+      description:
+        'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
+    },
+    cues: [
+      { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.34%', left: '0.00%', width: '4.99%', height: '47.83%' } },
+      { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '12.45%', left: '94.97%', width: '5.05%', height: '45.61%' } },
+      { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.23%', left: '31.75%', width: '15.87%', height: '20.23%' } },
+      { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
+      { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '50.40%', left: '70.84%', width: '7.50%', height: '2.50%' } },
+      { id: 'ally_health_2', label: 'Ally HP 2', reveal_group: 'ally_health', overlay: { top: '32.20%', left: '26.70%', width: '7.50%', height: '2.50%' } },
+      { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '18.56%', left: '39.89%', width: '7.50%', height: '2.50%' } },
+      { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
+      { id: 'minimap', label: 'Minimap', overlay: { top: '74.10%', left: '85.48%', width: '13.80%', height: '25.75%' } }
+    ]
+  },
+  {
+    id: 'trial6',
+    screenshot: 'assets/screenshot6.png',
+    ally_side: 'blue',
+    role_prompt: 'You are the blue-side shotcaller. What would you call here?',
+    baseline: {
+      description:
+        'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
+    },
+    cues: [
+      { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.34%', left: '0.00%', width: '4.99%', height: '47.83%' } },
+      { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '12.06%', left: '95.20%', width: '5.05%', height: '46.42%' } },
+      { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.39%', left: '31.19%', width: '15.98%', height: '20.23%' } },
+      { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
+      { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '32.80%', left: '48.40%', width: '7.50%', height: '2.50%' } },
+      { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '45.20%', left: '60.20%', width: '7.50%', height: '2.50%' } },
+      { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
+      { id: 'minimap', label: 'Minimap', overlay: { top: '74.14%', left: '85.60%', width: '14.36%', height: '25.76%' } }
+    ]
+  },
+  {
+    id: 'trial7',
+    screenshot: 'assets/screenshot7.png',
+    ally_side: 'blue',
+    role_prompt: 'You are the blue-side shotcaller. What would you call here?',
+    baseline: {
+      description:
+        'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
+    },
+    cues: [
+      { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.34%', left: '0.00%', width: '4.99%', height: '47.83%' } },
+      { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '11.46%', left: '95.53%', width: '4.15%', height: '47.57%' } },
+      { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.39%', left: '31.53%', width: '15.65%', height: '20.23%' } },
+      { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
+      { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '21.51%', left: '38.23%', width: '7.50%', height: '2.50%' } },
+      { id: 'ally_health_2', label: 'Ally HP 2', reveal_group: 'ally_health', overlay: { top: '18.46%', left: '43.81%', width: '7.50%', height: '2.50%' } },
+      { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '45.30%', left: '46.00%', width: '7.50%', height: '2.50%' } },
+      { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
+      { id: 'minimap', label: 'Minimap', overlay: { top: '74.07%', left: '85.26%', width: '14.02%', height: '26.33%' } }
     ]
   }
 ];
@@ -229,9 +228,12 @@ function uniquePushAll(targetArray, values) {
 }
 
 function downloadTextFile(filename, text) {
-  const mimeType = filename.toLowerCase().endsWith('.csv')
+  const lowercaseFilename = filename.toLowerCase();
+  const mimeType = lowercaseFilename.endsWith('.csv')
     ? 'text/csv;charset=utf-8'
-    : 'text/plain;charset=utf-8';
+    : lowercaseFilename.endsWith('.tsv')
+      ? 'text/tab-separated-values;charset=utf-8'
+      : 'text/plain;charset=utf-8';
   const blob = new Blob([text], { type: mimeType });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -251,8 +253,142 @@ function pct(value) {
   return `${value.toFixed(2)}%`;
 }
 
-function csvEscape(value) {
-  const stringValue = value == null ? '' : String(value);
+const DEFAULT_CUE_OVERLAY = {
+  top: '4.00%',
+  left: '4.00%',
+  width: '12.00%',
+  height: '12.00%'
+};
+const DEFAULT_SCENARIO_DESCRIPTION = 'Add scenario context here.';
+const DEFAULT_PRIOR_CONTEXT = 'No additional prior context was provided for this scenario.';
+const RESULT_FIELD_DELIMITER = '\t';
+const RESULT_LINE_DELIMITER = '\r\n';
+const LIVE_TRIAL_DURATION_SEC = 60;
+const MIN_RATIONALE_WORDS = 8;
+
+const tutorialStimulusSeed = {
+  id: 'tutorial_practice',
+  is_tutorial: true,
+  screenshot: 'assets/screenshot2.png',
+  ally_side: 'blue',
+  role_prompt: 'Tutorial round: practice revealing blocks and making a fast call before the live study begins.',
+  baseline: {
+    description:
+      'This warm-up round is only for practice. Learn how block reveals, confidence updates, prior context, and final decisions work before the timed trials start.',
+    prior_context:
+      'Example prior context: the enemy jungler was seen pathing bot-side 12 seconds ago, your support just used Flash, and the next allied wave will arrive first.'
+  },
+  cues: [
+    { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
+    { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.48%', left: '31.35%', width: '16.28%', height: '20.26%' } },
+    { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
+    { id: 'minimap', label: 'Minimap', overlay: { top: '74.04%', left: '83.71%', width: '15.58%', height: '25.53%' } }
+  ]
+};
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function getCueOverlay(cue) {
+  return {
+    ...DEFAULT_CUE_OVERLAY,
+    ...(cue?.overlay ?? {})
+  };
+}
+
+function getScenarioDescription(stimulus) {
+  const description = stimulus?.baseline?.description;
+  return typeof description === 'string' && description.trim()
+    ? description.trim()
+    : DEFAULT_SCENARIO_DESCRIPTION;
+}
+
+function getPriorContext(stimulus) {
+  const priorContext = stimulus?.baseline?.prior_context;
+  if (typeof priorContext === 'string' && priorContext.trim()) {
+    return priorContext.trim();
+  }
+
+  const scenarioDescription = getScenarioDescription(stimulus);
+  return scenarioDescription !== DEFAULT_SCENARIO_DESCRIPTION
+    ? scenarioDescription
+    : DEFAULT_PRIOR_CONTEXT;
+}
+
+function buildPriorContextMarkup(stimulus, suffix = 'default', options = {}) {
+  const panelId = `prior-context-panel-${suffix}`;
+  const buttonLabel = options.buttonLabel || 'Prior context';
+
+  return `
+    <div class="prior-context-anchor">
+      <div class="prior-context-wrap prior-context-floating">
+        <button
+          type="button"
+          class="prior-context-toggle"
+          aria-label="${escapeHtml(buttonLabel)}"
+          title="${escapeHtml(buttonLabel)}"
+          aria-expanded="false"
+          aria-controls="${panelId}"
+        >
+          <span class="prior-context-toggle-mark">?</span>
+        </button>
+      </div>
+      <div id="${panelId}" class="prior-context-panel" hidden>
+        ${escapeHtml(getPriorContext(stimulus))}
+      </div>
+    </div>
+  `;
+}
+
+function ensureStimulusDefaults(stimulus) {
+  if (!stimulus.baseline) stimulus.baseline = {};
+  if (!stimulus.baseline.description) stimulus.baseline.description = DEFAULT_SCENARIO_DESCRIPTION;
+
+  stimulus.cues.forEach((cue) => {
+    cue.overlay = getCueOverlay(cue);
+  });
+
+  return stimulus;
+}
+
+stimuli.forEach(ensureStimulusDefaults);
+const tutorialStimulus = ensureStimulusDefaults(tutorialStimulusSeed);
+
+function countWords(text) {
+  return String(text ?? '')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .length;
+}
+
+function getCueLabel(stimulus, cueId) {
+  return stimulus.cues.find((cue) => cue.id === cueId)?.label || cueId;
+}
+
+function joinNaturalLanguage(items) {
+  if (items.length <= 1) return items[0] || '';
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
+}
+
+function formatRevealSummary(stimulus, revealedIds) {
+  const labels = revealedIds.map((cueId) => getCueLabel(stimulus, cueId));
+  return joinNaturalLanguage(labels);
+}
+
+function spreadsheetEscape(value) {
+  const stringValue = value == null
+    ? ''
+    : String(value)
+      .replace(/\r\n|\n|\r/g, ' / ')
+      .replace(/\t/g, ' ');
   return `"${stringValue.replace(/"/g, '""')}"`;
 }
 
@@ -281,7 +417,20 @@ function flattenRevealedCueSets(revealOrder) {
 }
 
 function flattenRevealTimes(revealOrder) {
-  return revealOrder.map((entry) => Math.round(Number(entry.time) || 0)).join(' | ');
+  return revealOrder.map((entry) => (Number(entry.time) || 0).toFixed(2)).join(' | ');
+}
+
+function getFirstRevealTime(revealOrder) {
+  if (!Array.isArray(revealOrder) || revealOrder.length === 0) return '';
+  return (Number(revealOrder[0]?.time) || 0).toFixed(2);
+}
+
+function flattenContextViewPhases(contextViews) {
+  return contextViews.map((entry) => entry.phase || '').join(' | ');
+}
+
+function flattenContextViewTimes(contextViews) {
+  return contextViews.map((entry) => (Number(entry.time) || 0).toFixed(2)).join(' | ');
 }
 
 function getJatosMetadata() {
@@ -304,10 +453,10 @@ function getJatosMetadata() {
   };
 }
 
-function buildCsvResult() {
+function buildSpreadsheetResult() {
   const rows = jsPsych.data.get().values();
   const surveyResponse = rows.find((row) => row.trial_type === 'survey-text')?.response ?? {};
-  const decisionRows = rows.filter((row) => row.event_type === 'decision');
+  const decisionRows = rows.filter((row) => row.event_type === 'decision' && !row.is_tutorial);
   const metadata = getJatosMetadata();
   const headers = [
     'worker_id',
@@ -316,20 +465,35 @@ function buildCsvResult() {
     'component_id',
     'component_result_id',
     'stimulus_id',
+    'ally_side',
     'screenshot',
     'role_prompt',
+    'scenario_description',
+    'prior_context',
     'decision',
+    'decision_source',
     'final_confidence',
     'rationale',
     'decision_rt_ms',
-    'decision_timestamp_ms',
+    'decision_timestamp_sec',
+    'timed_out',
+    'trial_duration_sec',
+    'num_blocks_opened',
+    'first_reveal_time_sec',
+    'final_seen_state',
+    'last_confidence_before_timeout',
+    'final_confidence_post_timeout',
     'num_cues_revealed',
     'cues_revealed',
     'reveal_click_order',
     'reveal_groups',
     'revealed_cue_sets',
     'overlay_confidence_sequence',
-    'reveal_timestamps_ms',
+    'reveal_timestamps_sec',
+    'context_opened',
+    'num_context_views',
+    'context_view_phases',
+    'context_view_timestamps_sec',
     'survey_rank',
     'survey_current_rank',
     'survey_opgg',
@@ -340,10 +504,11 @@ function buildCsvResult() {
     'survey_competitive_experience'
   ];
 
-  const csvRows = decisionRows.map((row) => {
+  const spreadsheetRows = decisionRows.map((row) => {
     const revealOrder = safeJsonParse(row.reveal_order, []);
     const cuesRevealed = safeJsonParse(row.cues_revealed, []);
     const revealConfidence = safeJsonParse(row.reveal_confidence, []);
+    const contextViews = safeJsonParse(row.context_views, []);
     const stimulusMeta = stimuli.find((stimulus) => stimulus.id === row.stimulus_id) ?? {};
 
     return [
@@ -353,13 +518,24 @@ function buildCsvResult() {
       metadata.component_id,
       metadata.component_result_id,
       row.stimulus_id ?? '',
+      stimulusMeta.ally_side ?? '',
       stimulusMeta.screenshot ?? '',
       stimulusMeta.role_prompt ?? '',
+      getScenarioDescription(stimulusMeta),
+      getPriorContext(stimulusMeta),
       row.decision ?? '',
+      row.decision_source ?? '',
       row.confidence ?? '',
       row.rationale ?? '',
       row.rt ?? '',
-      Math.round(Number(row.time) || 0),
+      (Number(row.time) || 0).toFixed(2),
+      row.timed_out ?? '0',
+      row.trial_duration_sec ?? '',
+      revealOrder.length,
+      getFirstRevealTime(revealOrder),
+      Array.isArray(cuesRevealed) ? cuesRevealed.join(' | ') : '',
+      row.last_confidence_before_timeout ?? '',
+      row.final_confidence_post_timeout ?? '',
       row.num_cues_revealed ?? 0,
       Array.isArray(cuesRevealed) ? cuesRevealed.join(' | ') : '',
       flattenRevealOrder(revealOrder),
@@ -367,6 +543,10 @@ function buildCsvResult() {
       flattenRevealedCueSets(revealOrder),
       Array.isArray(revealConfidence) ? revealConfidence.join(' | ') : '',
       flattenRevealTimes(revealOrder),
+      contextViews.length > 0 ? '1' : '0',
+      row.num_context_views ?? contextViews.length,
+      flattenContextViewPhases(contextViews),
+      flattenContextViewTimes(contextViews),
       surveyResponse.rank ?? '',
       surveyResponse.current_rank ?? '',
       surveyResponse.opgg ?? '',
@@ -375,39 +555,13 @@ function buildCsvResult() {
       surveyResponse.role ?? '',
       surveyResponse.otp ?? '',
       surveyResponse.competitive ?? ''
-    ].map(csvEscape).join(',');
+    ].map(spreadsheetEscape).join(RESULT_FIELD_DELIMITER);
   });
 
-  return [headers.join(','), ...csvRows].join('\n');
-}
-
-function buildImageWithRemovedCues(stimulus, revealedCueIds) {
-  const remainingCues = stimulus.cues.filter((c) => !revealedCueIds.includes(c.id));
-
-  let html = `
-    <div class="screen-wrap">
-      <h3>${stimulus.role_prompt}</h3>
-      <div class="screenshot-container" id="participant-screenshot-container">
-        <img src="${stimulus.screenshot}" alt="League screenshot" />
-  `;
-
-  remainingCues.forEach((cue) => {
-    const overlay = cue.overlay;
-    html += `
-      <div
-        class="cue-overlay"
-        style="
-          top:${overlay.top};
-          left:${overlay.left};
-          width:${overlay.width};
-          height:${overlay.height};
-        "
-      ></div>
-    `;
-  });
-
-  html += `</div></div>`;
-  return html;
+  return [
+    headers.map(spreadsheetEscape).join(RESULT_FIELD_DELIMITER),
+    ...spreadsheetRows
+  ].join(RESULT_LINE_DELIMITER);
 }
 
 function renderCalibrationApp() {
@@ -419,7 +573,7 @@ function renderCalibrationApp() {
   }
 
   function buildOverlayBox(cue) {
-    const overlay = cue.overlay;
+    const overlay = getCueOverlay(cue);
     const isActive = activeCueId === cue.id;
     return `
       <div
@@ -435,10 +589,14 @@ function renderCalibrationApp() {
           display:flex;
           align-items:center;
           justify-content:center;
+          overflow:visible;
         "
       >
-        <span class="cue-overlay-label">${cue.id}</span>
-        <div class="resize-handle" data-resize-id="${cue.id}"></div>
+        <span class="cue-overlay-label">${escapeHtml(cue.id)}</span>
+        <div class="resize-handle corner-tl" data-corner="tl" data-resize-id="${cue.id}"></div>
+        <div class="resize-handle corner-tr" data-corner="tr" data-resize-id="${cue.id}"></div>
+        <div class="resize-handle corner-bl" data-corner="bl" data-resize-id="${cue.id}"></div>
+        <div class="resize-handle corner-br" data-corner="br" data-resize-id="${cue.id}"></div>
       </div>
     `;
   }
@@ -450,17 +608,15 @@ function renderCalibrationApp() {
   }
 
   function formatCueForCode(cue, indent = '      ') {
-    const lines = [
-      `${indent}{`,
-      `${indent}  id: ${codeString(cue.id)},`,
-      cue.label ? `${indent}  label: ${codeString(cue.label)},` : null,
-      cue.reveal_group ? `${indent}  reveal_group: ${codeString(cue.reveal_group)},` : null,
-      cue.present === false ? `${indent}  present: false,` : null,
-      `${indent}  overlay: { top: ${codeString(cue.overlay?.top ?? '0%')}, left: ${codeString(cue.overlay?.left ?? '0%')}, width: ${codeString(cue.overlay?.width ?? '10%')}, height: ${codeString(cue.overlay?.height ?? '10%')} }`,
-      `${indent}}`
+    const cueParts = [
+      `id: ${codeString(cue.id)}`,
+      cue.label ? `label: ${codeString(cue.label)}` : null,
+      cue.reveal_group ? `reveal_group: ${codeString(cue.reveal_group)}` : null,
+      cue.present === false ? 'present: false' : null,
+      `overlay: { top: ${codeString(cue.overlay?.top ?? '0%')}, left: ${codeString(cue.overlay?.left ?? '0%')}, width: ${codeString(cue.overlay?.width ?? '10%')}, height: ${codeString(cue.overlay?.height ?? '10%')} }`
     ].filter(Boolean);
 
-    return lines.join('\n');
+    return `${indent}{ ${cueParts.join(', ')} }`;
   }
 
   function formatCueArrayForCode(cues, baseIndent = '    ') {
@@ -468,16 +624,41 @@ function renderCalibrationApp() {
     return `${baseIndent}cues: [\n${cues.map((cue) => formatCueForCode(cue, cueIndent)).join(',\n')}\n${baseIndent}]`;
   }
 
+  function formatStimulusForCode(stimulus, baseIndent = '') {
+    const innerIndent = baseIndent + '  ';
+    const baselineLines = [
+      `${innerIndent}baseline: {`,
+      `${innerIndent}  description:`,
+      `${innerIndent}    ${codeString(getScenarioDescription(stimulus))}${stimulus?.baseline?.prior_context ? ',' : ''}`
+    ];
+
+    if (stimulus?.baseline?.prior_context) {
+      baselineLines.push(
+        `${innerIndent}  prior_context:`,
+        `${innerIndent}    ${codeString(getPriorContext(stimulus))}`
+      );
+    }
+
+    baselineLines.push(`${innerIndent}},`);
+
+    return [
+      `${baseIndent}{`,
+      `${innerIndent}id: ${codeString(stimulus.id)},`,
+      `${innerIndent}screenshot: ${codeString(stimulus.screenshot)},`,
+      `${innerIndent}ally_side: ${codeString(stimulus.ally_side ?? 'blue')},`,
+      `${innerIndent}role_prompt: ${codeString(stimulus.role_prompt ?? '')},`,
+      ...baselineLines,
+      formatCueArrayForCode(stimulus.cues, innerIndent),
+      `${baseIndent}}`
+    ].join('\n');
+  }
+
   function formatAllStimuliForCode(stimuliArray) {
-    return stimuliArray
-      .map((stimulus) => {
-        return `// ${stimulus.id}\n${formatCueArrayForCode(stimulus.cues, '    ')}`;
-      })
-      .join('\n\n');
+    return stimuliArray.map((stimulus) => formatStimulusForCode(stimulus)).join(',\n');
   }
 
   function currentStimulusOverlayCode() {
-    return formatCueArrayForCode(currentStimulus().cues);
+    return formatStimulusForCode(currentStimulus());
   }
 
   function allStimuliOverlayCode() {
@@ -502,10 +683,10 @@ function renderCalibrationApp() {
           <button id="export-all" class="jspsych-btn">Export all stimuli code</button>
         </div>
         <p class="hint">
-          Drag a black box to move it. Drag the white square in the lower-right corner to resize it.
+          Drag a box to move it. Drag any gold corner handle to resize from that corner.
         </p>
         <div class="screen-wrap">
-          <h3>${stimulus.role_prompt}</h3>
+          <h3>${escapeHtml(stimulus.role_prompt)}</h3>
           <div class="screenshot-container" id="calibration-container">
             <img src="${stimulus.screenshot}" alt="League screenshot" />
             ${stimulus.cues.map(buildOverlayBox).join('')}
@@ -523,6 +704,26 @@ function renderCalibrationApp() {
     const container = document.getElementById('calibration-container');
     const output = document.getElementById('overlay-output');
 
+    let outputSyncFrame = null;
+
+    function syncOutputNow() {
+      output.value = currentStimulusOverlayCode();
+      outputSyncFrame = null;
+    }
+
+    function scheduleOutputSync() {
+      if (outputSyncFrame !== null) return;
+      outputSyncFrame = window.requestAnimationFrame(syncOutputNow);
+    }
+
+    function updateCueBoxStyles(box, cue) {
+      const overlay = getCueOverlay(cue);
+      box.style.top = overlay.top;
+      box.style.left = overlay.left;
+      box.style.width = overlay.width;
+      box.style.height = overlay.height;
+    }
+
     document.getElementById('prev-stimulus').onclick = () => {
       currentStimulusIndex = (currentStimulusIndex - 1 + stimuli.length) % stimuli.length;
       activeCueId = null;
@@ -536,7 +737,7 @@ function renderCalibrationApp() {
     };
 
     document.getElementById('copy-current').onclick = async () => {
-      output.value = currentStimulusOverlayCode();
+      syncOutputNow();
       try {
         await navigator.clipboard.writeText(output.value);
       } catch (err) { }
@@ -550,7 +751,7 @@ function renderCalibrationApp() {
     };
 
     document.getElementById('export-current').onclick = () => {
-      output.value = currentStimulusOverlayCode();
+      syncOutputNow();
       downloadTextFile(`${stimulus.id}-overlays.js`, output.value);
     };
 
@@ -576,13 +777,44 @@ function renderCalibrationApp() {
     boxes.forEach((box) => {
       const cueId = box.dataset.cueId;
       const cue = stimulus.cues.find((c) => c.id === cueId);
-      const handle = box.querySelector('.resize-handle');
+      const handles = box.querySelectorAll('.resize-handle');
 
-      box.addEventListener('mousedown', (event) => {
-        if (event.target === handle) return;
-        event.preventDefault();
+      function startPointerInteraction(pointerTarget, pointerDownEvent, computeNextOverlay) {
+        pointerDownEvent.preventDefault();
         setActiveCue(cueId);
 
+        const pointerId = pointerDownEvent.pointerId;
+        if (pointerTarget.setPointerCapture) {
+          pointerTarget.setPointerCapture(pointerId);
+        }
+
+        function onPointerMove(moveEvent) {
+          if (moveEvent.pointerId !== pointerId) return;
+          moveEvent.preventDefault();
+          cue.overlay = computeNextOverlay(moveEvent);
+          updateCueBoxStyles(box, cue);
+          scheduleOutputSync();
+        }
+
+        function stopInteraction(endEvent) {
+          if (endEvent.pointerId !== pointerId) return;
+          document.removeEventListener('pointermove', onPointerMove);
+          document.removeEventListener('pointerup', stopInteraction);
+          document.removeEventListener('pointercancel', stopInteraction);
+          if (pointerTarget.releasePointerCapture) {
+            pointerTarget.releasePointerCapture(pointerId);
+          }
+          syncOutputNow();
+        }
+
+        document.addEventListener('pointermove', onPointerMove, { passive: false });
+        document.addEventListener('pointerup', stopInteraction);
+        document.addEventListener('pointercancel', stopInteraction);
+      }
+
+      // --- MOVE (drag the box body, not a handle) ---
+      box.addEventListener('pointerdown', (event) => {
+        if (event.target.classList.contains('resize-handle')) return;
         const containerRect = container.getBoundingClientRect();
         const boxRect = box.getBoundingClientRect();
         const startX = event.clientX;
@@ -591,62 +823,74 @@ function renderCalibrationApp() {
         const startTopPx = boxRect.top - containerRect.top;
         const boxWidthPx = boxRect.width;
         const boxHeightPx = boxRect.height;
-
-        function onMove(moveEvent) {
+        startPointerInteraction(box, event, (moveEvent) => {
           const dx = moveEvent.clientX - startX;
           const dy = moveEvent.clientY - startY;
-          const newLeftPx = clamp(startLeftPx + dx, 0, container.clientWidth - boxWidthPx);
-          const newTopPx = clamp(startTopPx + dy, 0, container.clientHeight - boxHeightPx);
-          cue.overlay.left = pct((newLeftPx / container.clientWidth) * 100);
-          cue.overlay.top = pct((newTopPx / container.clientHeight) * 100);
-          box.style.left = cue.overlay.left;
-          box.style.top = cue.overlay.top;
-          output.value = currentStimulusOverlayCode();
-        }
-
-        function onUp() {
-          document.removeEventListener('mousemove', onMove);
-          document.removeEventListener('mouseup', onUp);
-        }
-
-        document.addEventListener('mousemove', onMove);
-        document.addEventListener('mouseup', onUp);
+          const edgeSlack = container.clientWidth * 0.02;
+          const newLeftPx = clamp(startLeftPx + dx, -edgeSlack, container.clientWidth - boxWidthPx + edgeSlack);
+          const newTopPx = clamp(startTopPx + dy, -edgeSlack, container.clientHeight - boxHeightPx + edgeSlack);
+          return {
+            top: pct((newTopPx / container.clientHeight) * 100),
+            left: pct((newLeftPx / container.clientWidth) * 100),
+            width: cue.overlay.width,
+            height: cue.overlay.height
+          };
+        });
       });
 
-      handle.addEventListener('mousedown', (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        setActiveCue(cueId);
+      // --- RESIZE (drag any corner handle) ---
+      handles.forEach((handle) => {
+        handle.addEventListener('pointerdown', (event) => {
+          event.stopPropagation();
 
-        const boxRect = box.getBoundingClientRect();
-        const startX = event.clientX;
-        const startY = event.clientY;
-        const startWidthPx = boxRect.width;
-        const startHeightPx = boxRect.height;
-        const startLeftPx = box.offsetLeft;
-        const startTopPx = box.offsetTop;
+          const corner = handle.dataset.corner; // tl, tr, bl, br
+          const containerRect = container.getBoundingClientRect();
+          const boxRect = box.getBoundingClientRect();
+          const startMouseX = event.clientX;
+          const startMouseY = event.clientY;
+          // Store starting geometry in px relative to container
+          const startLeft = boxRect.left - containerRect.left;
+          const startTop = boxRect.top - containerRect.top;
+          const startWidth = boxRect.width;
+          const startHeight = boxRect.height;
+          const startRight = startLeft + startWidth;
+          const startBottom = startTop + startHeight;
+          const cW = container.clientWidth;
+          const cH = container.clientHeight;
+          const MIN = 1; // allow near hairline overlays for HP/mana bars
+          startPointerInteraction(handle, event, (moveEvent) => {
+            const dx = moveEvent.clientX - startMouseX;
+            const dy = moveEvent.clientY - startMouseY;
+            let newLeft = startLeft, newTop = startTop, newWidth = startWidth, newHeight = startHeight;
 
-        function onMove(moveEvent) {
-          const dx = moveEvent.clientX - startX;
-          const dy = moveEvent.clientY - startY;
-          const maxWidth = container.clientWidth - startLeftPx;
-          const maxHeight = container.clientHeight - startTopPx;
-          const newWidthPx = clamp(startWidthPx + dx, 4, maxWidth);
-          const newHeightPx = clamp(startHeightPx + dy, 4, maxHeight);
-          cue.overlay.width = pct((newWidthPx / container.clientWidth) * 100);
-          cue.overlay.height = pct((newHeightPx / container.clientHeight) * 100);
-          box.style.width = cue.overlay.width;
-          box.style.height = cue.overlay.height;
-          output.value = currentStimulusOverlayCode();
-        }
+            const slack = cW * 0.02; // allow slight overflow past edges
 
-        function onUp() {
-          document.removeEventListener('mousemove', onMove);
-          document.removeEventListener('mouseup', onUp);
-        }
+            if (corner === 'tl') {
+              newLeft = clamp(startLeft + dx, -slack, startRight - MIN);
+              newTop = clamp(startTop + dy, -slack, startBottom - MIN);
+              newWidth = startRight - newLeft;
+              newHeight = startBottom - newTop;
+            } else if (corner === 'tr') {
+              newTop = clamp(startTop + dy, -slack, startBottom - MIN);
+              newWidth = clamp(startWidth + dx, MIN, cW - startLeft + slack);
+              newHeight = startBottom - newTop;
+            } else if (corner === 'bl') {
+              newLeft = clamp(startLeft + dx, -slack, startRight - MIN);
+              newWidth = startRight - newLeft;
+              newHeight = clamp(startHeight + dy, MIN, cH - startTop + slack);
+            } else {
+              newWidth = clamp(startWidth + dx, MIN, cW - startLeft + slack);
+              newHeight = clamp(startHeight + dy, MIN, cH - startTop + slack);
+            }
 
-        document.addEventListener('mousemove', onMove);
-        document.addEventListener('mouseup', onUp);
+            return {
+              top: pct((newTop / cH) * 100),
+              left: pct((newLeft / cW) * 100),
+              width: pct((newWidth / cW) * 100),
+              height: pct((newHeight / cH) * 100)
+            };
+          });
+        });
       });
     });
   }
@@ -654,36 +898,138 @@ function renderCalibrationApp() {
   rerender();
 }
 
-function buildCueSearchTimeline(stimulus) {
+function buildCueSearchTimeline(stimulus, options = {}) {
+  const isTutorial = options.isTutorial === true || Boolean(stimulus.is_tutorial);
+  const trialDurationSec = Number.isFinite(options.trialDurationSec)
+    ? options.trialDurationSec
+    : (isTutorial ? null : LIVE_TRIAL_DURATION_SEC);
   const revealedCueIds = [];
   const revealOrder = [];
   const revealConfidence = [];
-  let finalDecisionConfidence =
-    revealConfidence.length > 0 ? Number(revealConfidence[revealConfidence.length - 1]) : 0;
+  const contextViews = [];
+  let trialStartTime = null;
+  let trialDeadlineTime = null;
+  let stimulusLocked = false;
+  let timedOut = false;
+  let timeoutSliderAdjustmentAvailable = false;
+  let timeoutSliderLockedValue = null;
+  let finalDecision = '';
+  let finalDecisionConfidence = 0;
   let finalDecisionRationale = '';
+
+  function recordContextView(phase) {
+    if (trialStartTime === null) {
+      trialStartTime = performance.now();
+    }
+
+    contextViews.push({
+      phase,
+      time: (performance.now() - trialStartTime) / 1000
+    });
+  }
+
+  function getElapsedMs() {
+    if (trialStartTime === null) return 0;
+    return Math.max(0, performance.now() - trialStartTime);
+  }
+
+  function getElapsedSec() {
+    return getElapsedMs() / 1000;
+  }
+
+  function getRemainingMs() {
+    if (!trialDeadlineTime) return Infinity;
+    return Math.max(0, trialDeadlineTime - performance.now());
+  }
+
+  function getCurrentConfidence() {
+    return revealConfidence.length > 0 ? Number(revealConfidence[revealConfidence.length - 1]) : 0;
+  }
+
+  function getBaseStatusMessage() {
+    if (timedOut) {
+      return 'Time expired. The screenshot is now blocked. Choose Fight or Don\'t Fight, then enter a short rationale.';
+    }
+
+    if (revealOrder.length === 0) {
+      return isTutorial
+        ? 'Practice round: click one of the labeled blocks to see how the study works. After each reveal, move the confidence slider before opening another block. You can commit to a final call at any time.'
+        : 'Reveal blocks to gather information, update confidence after each reveal, and commit to Fight or Don\'t Fight whenever you are ready. The screenshot will be covered when the timer reaches zero.';
+    }
+
+    const lastReveal = revealOrder[revealOrder.length - 1];
+    const revealSummary = formatRevealSummary(
+      stimulus,
+      lastReveal.revealed_cue_ids || [lastReveal.cue_id]
+    );
+
+    return isTutorial
+      ? `Block revealed: ${revealSummary}. Update your confidence now before revealing another block. If you already know your answer, choose Fight or Don't Fight and continue.`
+      : `Last block revealed: ${revealSummary}. Move the slider before revealing another block. You can still commit whenever you are ready.`;
+  }
+
+  function attachPriorContextToggle(phase, handlers = {}) {
+    const toggle = document.querySelector('.prior-context-toggle');
+    const panel = document.querySelector('.prior-context-panel');
+    if (!toggle || !panel) return;
+
+    toggle.addEventListener('click', function () {
+      const isOpening = panel.hidden;
+      panel.hidden = !panel.hidden;
+      toggle.setAttribute('aria-expanded', String(isOpening));
+      toggle.classList.toggle('open', isOpening);
+
+      if (isOpening) {
+        recordContextView(phase);
+        if (typeof handlers.onOpen === 'function') {
+          handlers.onOpen();
+        }
+      } else if (typeof handlers.onClose === 'function') {
+        handlers.onClose();
+      }
+    });
+  }
 
   function createOverlayTrial() {
     return {
       type: jsPsychHtmlButtonResponse,
       choices: [],
       stimulus: function () {
-        const remainingCues = stimulus.cues.filter((c) => !revealedCueIds.includes(c.id));
-        const mustAdjustConfidence = revealedCueIds.length > 0;
-        const currentConfidence =
-          revealConfidence.length > 0 ? Number(revealConfidence[revealConfidence.length - 1]) : 0;
+        const remainingCues = stimulusLocked
+          ? []
+          : stimulus.cues.filter((cue) => !revealedCueIds.includes(cue.id));
+        const currentConfidence = getCurrentConfidence();
+        const statusMessage = getBaseStatusMessage();
 
         let html = `
           <div class="screen-wrap">
-            <h3>${stimulus.role_prompt}</h3>
-            <div class="screenshot-container" id="participant-screenshot-container">
-              <img src="${stimulus.screenshot}" alt="League screenshot" />
+            <div class="trial-hero ${isTutorial ? 'tutorial-hero' : ''}">
+              <div class="trial-meta">
+                <div class="trial-chip">${isTutorial ? 'Tutorial Run' : 'Timed Trial'}</div>
+                <div class="trial-chip ${trialDurationSec ? 'trial-chip-timer' : 'trial-chip-practice'}">
+                  ${trialDurationSec
+                    ? `Decision window: <span id="trial-timer-value">${trialDurationSec}s</span>`
+                    : 'Practice mode: no countdown'}
+                </div>
+              </div>
+              <h3>${escapeHtml(stimulus.role_prompt)}</h3>
+              <p class="trial-subcopy">
+                ${isTutorial
+                  ? 'This round is not scored. Use it to learn the flow of block reveals, confidence updates, prior context, and final decisions.'
+                  : 'These live trials are about making a quick read. Reveal only the information you need, then commit to a call before the window closes.'}
+              </p>
+            </div>
+
+            <div class="stimulus-stage">
+              <div class="screenshot-container ${stimulusLocked ? 'stimulus-locked' : ''}" id="participant-screenshot-container">
+                <img src="${stimulus.screenshot}" alt="League screenshot" />
         `;
 
         remainingCues.forEach((cue) => {
-          const overlay = cue.overlay;
+          const overlay = getCueOverlay(cue);
           html += `
             <button
-              class="cue-overlay reveal-box"
+              class="cue-overlay reveal-box ${isTutorial ? 'tutorial-reveal-box' : ''}"
               data-cue-id="${cue.id}"
               style="
                 top:${overlay.top};
@@ -692,198 +1038,346 @@ function buildCueSearchTimeline(stimulus) {
                 height:${overlay.height};
                 cursor:pointer;
               "
-              aria-label="${cue.label}"
-            ></button>
+              aria-label="${escapeHtml(cue.label ?? cue.id)}"
+            >${isTutorial ? `<span class="cue-overlay-label tutorial-cue-label">${escapeHtml(cue.label ?? cue.id)}</span>` : ''}</button>
           `;
         });
 
-        html += `</div>`;
-
         html += `
-          <div class="decision-panel">
-            <label for="confidence-slider" style="display:block; margin-bottom:10px; font-size:32px;">Confidence</label>
-            <div class="slider-row" style="max-width:900px; margin:0 auto; gap:18px;">
-              <div style="text-align:center; min-width:110px;">
-                <div style="font-size:12px;">100%</div>
-                <div style="font-size:14px;">Don't Fight</div>
+                <div id="stimulus-lock-cover" class="stimulus-lock-cover" ${stimulusLocked ? '' : 'hidden'}>
+                  <div class="stimulus-lock-copy" id="stimulus-lock-copy">
+                    ${timedOut
+                      ? 'Time expired. Commit to Fight or Don\'t Fight, then explain your reasoning.'
+                      : ''}
+                  </div>
+                </div>
               </div>
-
-              <input
-                id="confidence-slider"
-                type="range"
-                min="-100"
-                max="100"
-                value="${currentConfidence}"
-                style="flex:1; height:32px;"
-              />
-
-              <div style="text-align:center; min-width:110px;">
-                <div style="font-size:12px;">100%</div>
-                <div style="font-size:14px;">Fight</div>
-              </div>
+              ${buildPriorContextMarkup(stimulus, `${stimulus.id}-overlay`, {
+                buttonLabel: 'Prior context'
+              })}
             </div>
 
-            <div style="text-align:center; font-size:13px; margin-top:8px;">
-              Center = 0 (uncertain)
-            </div>
+            <div class="decision-panel">
+              <div class="decision-panel-header">
+                <label for="confidence-slider" class="decision-panel-title">Confidence</label>
+                <div class="decision-panel-meta">
+                  ${trialDurationSec
+                    ? 'The live screenshot locks when the timer reaches 0.'
+                    : 'Practice flow: reveal, update confidence, then decide whenever you are ready.'}
+                </div>
+              </div>
 
-            ${mustAdjustConfidence
-            ? '<p class="warning-text" id="adjust-note">Move the slider before your next reveal or final decision.</p>'
-            : '<p class="hint">Reveal a cue or make your final decision.</p>'
-          }
+              <div class="slider-row decision-slider-row">
+                <button
+                  type="button"
+                  id="decision-dont-fight"
+                  class="decision-choice decision-choice-left"
+                  data-decision="DON\'T FIGHT"
+                >
+                  <span class="decision-percent">100%</span>
+                  <span class="decision-label">Don\'t Fight</span>
+                </button>
 
-            <div style="margin-top:18px;">
-              <button id="finalize-btn" class="jspsych-btn">Make final decision</button>
+                <input
+                  id="confidence-slider"
+                  type="range"
+                  min="-100"
+                  max="100"
+                  value="${currentConfidence}"
+                  style="flex:1; height:32px;"
+                />
+
+                <button
+                  type="button"
+                  id="decision-fight"
+                  class="decision-choice decision-choice-right"
+                  data-decision="FIGHT"
+                >
+                  <span class="decision-percent">100%</span>
+                  <span class="decision-label">Fight</span>
+                </button>
+              </div>
+
+              <div class="decision-scale-caption">
+                Center = 0 (uncertain)
+              </div>
+
+              <p id="adjust-note" class="${revealedCueIds.length > 0 || timedOut ? 'warning-text' : 'hint'} status-banner">
+                ${escapeHtml(statusMessage)}
+              </p>
+
+              <div id="rationale-section" class="rationale-section" hidden>
+                <div class="rationale-heading">
+                  Selected call: <strong id="selected-decision-label"></strong>
+                </div>
+                <label for="rationale">Rationale</label>
+                <textarea
+                  id="rationale"
+                  rows="4"
+                  cols="70"
+                  placeholder="Briefly explain what led you to this call."
+                ></textarea>
+                <div class="rationale-actions">
+                  <div id="rationale-word-count" class="text-muted">0 words</div>
+                  <button id="submit-decision-btn" class="jspsych-btn">Continue to next stimulus</button>
+                </div>
+              </div>
             </div>
           </div>
         `;
 
-        html += `</div>`;
         return html;
       },
       data: {
         stimulus_id: stimulus.id,
-        phase: 'overlay'
+        phase: 'overlay',
+        is_tutorial: isTutorial
       },
       on_load: function () {
-        const slider = document.getElementById('confidence-slider');
-        const finalizeBtn = document.getElementById('finalize-btn');
-        const overlayButtons = document.querySelectorAll('.reveal-box');
-        const mustAdjustConfidence = revealedCueIds.length > 0;
-        let sliderTouched = !mustAdjustConfidence;
-        const initialValue = slider ? slider.value : null;
+        if (trialStartTime === null) {
+          trialStartTime = performance.now();
+          if (trialDurationSec) {
+            trialDeadlineTime = trialStartTime + (trialDurationSec * 1000);
+          }
+        }
 
-        if (mustAdjustConfidence && slider) {
-          slider.addEventListener('input', () => {
-            if (slider.value !== initialValue) {
-              sliderTouched = true;
-              const note = document.getElementById('adjust-note');
-              if (note) note.textContent = 'Confidence updated. You can continue.';
+        const slider = document.getElementById('confidence-slider');
+        const overlayButtons = document.querySelectorAll('.reveal-box');
+        const decisionButtons = document.querySelectorAll('.decision-choice');
+        const rationaleSection = document.getElementById('rationale-section');
+        const rationaleInput = document.getElementById('rationale');
+        const rationaleWordCount = document.getElementById('rationale-word-count');
+        const submitDecisionBtn = document.getElementById('submit-decision-btn');
+        const selectedDecisionLabel = document.getElementById('selected-decision-label');
+        const adjustNote = document.getElementById('adjust-note');
+        const lockCover = document.getElementById('stimulus-lock-cover');
+        const lockCopy = document.getElementById('stimulus-lock-copy');
+        const timerValue = document.getElementById('trial-timer-value');
+        const priorContextToggle = document.querySelector('.prior-context-toggle');
+        const priorContextPanel = document.querySelector('.prior-context-panel');
+        let sliderTouched = revealedCueIds.length === 0;
+        let requiredSliderValue = slider ? slider.value : null;
+        let timerHandle = null;
+
+        function clearTimer() {
+          if (timerHandle !== null) {
+            window.clearInterval(timerHandle);
+            timerHandle = null;
+          }
+        }
+
+        function updateStatusMessage(message, tone = 'warning') {
+          if (!adjustNote) return;
+          adjustNote.textContent = message;
+          adjustNote.className = `${tone === 'hint' ? 'hint' : 'warning-text'} status-banner`;
+        }
+
+        function closePriorContext() {
+          if (!priorContextToggle || !priorContextPanel) return;
+          priorContextPanel.hidden = true;
+          priorContextToggle.setAttribute('aria-expanded', 'false');
+          priorContextToggle.classList.remove('open');
+        }
+
+        function lockStimulus(options = {}) {
+          if (stimulusLocked) return;
+          stimulusLocked = true;
+          clearTimer();
+          overlayButtons.forEach((button) => {
+            button.disabled = true;
+            button.classList.add('revealed');
+          });
+          if (slider && options.freezeSlider) {
+            slider.disabled = true;
+          }
+          if (lockCover) {
+            lockCover.hidden = !options.showCover;
+            lockCover.classList.toggle('timeout-cover', Boolean(options.isTimeout));
+          }
+          if (lockCopy && options.message) lockCopy.textContent = options.message;
+          closePriorContext();
+          if (priorContextToggle) {
+            priorContextToggle.disabled = true;
+            priorContextToggle.setAttribute('aria-disabled', 'true');
+          }
+        }
+
+        function finishDecision() {
+          const rationaleValue = rationaleInput ? rationaleInput.value.trim() : '';
+          const rationaleWords = countWords(rationaleValue);
+          const requiredRationaleWords = isTutorial ? 0 : MIN_RATIONALE_WORDS;
+
+          if (!finalDecision) {
+            alert('Choose Fight or Don\'t Fight before continuing.');
+            return;
+          }
+
+          if (rationaleWords < requiredRationaleWords) {
+            alert(`Please enter at least ${requiredRationaleWords} words in your rationale before continuing.`);
+            return;
+          }
+
+          clearTimer();
+          finalDecisionRationale = rationaleValue;
+          finalDecisionConfidence = slider ? slider.value : finalDecisionConfidence;
+
+          jsPsych.finishTrial({
+            stimulus_id: stimulus.id,
+            is_tutorial: isTutorial,
+            event_type: 'decision',
+            decision: finalDecision,
+            decision_source: timedOut ? 'timeout' : 'self-paced',
+            confidence: finalDecisionConfidence,
+            last_confidence_before_timeout: timedOut ? timeoutSliderLockedValue ?? '' : '',
+            final_confidence_post_timeout: timedOut ? finalDecisionConfidence : '',
+            rationale: finalDecisionRationale,
+            reveal_order: JSON.stringify(revealOrder),
+            cues_revealed: JSON.stringify(revealedCueIds),
+            reveal_confidence: JSON.stringify([...revealConfidence, finalDecisionConfidence]),
+            num_cues_revealed: revealedCueIds.length,
+            context_views: JSON.stringify(contextViews),
+            num_context_views: contextViews.length,
+            time: getElapsedSec(),
+            rt: getElapsedMs(),
+            timed_out: timedOut ? '1' : '0',
+            trial_duration_sec: trialDurationSec ?? ''
+          });
+        }
+
+        function updateTimerDisplay() {
+          if (!timerValue || !trialDurationSec || stimulusLocked) return;
+
+          const remainingMs = getRemainingMs();
+          const remainingSec = Math.max(0, Math.ceil(remainingMs / 1000));
+          timerValue.textContent = `${remainingSec}s`;
+          timerValue.classList.toggle('urgent', remainingSec <= 10);
+
+          if (remainingMs <= 0) {
+            timedOut = true;
+            timeoutSliderAdjustmentAvailable = true;
+            timeoutSliderLockedValue = slider ? slider.value : null;
+            lockStimulus({
+              showCover: true,
+              isTimeout: true,
+              message: 'Time is up. Make your choice, then explain your answer.'
+            });
+            updateStatusMessage(
+              'Time expired. The screenshot is now blocked. You may make one last confidence change, then choose Fight or Don\'t Fight and enter your rationale.',
+              'warning'
+            );
+          }
+        }
+
+        attachPriorContextToggle('overlay', {
+          onOpen: function () {
+            if (!stimulusLocked && slider) {
+              sliderTouched = false;
+              requiredSliderValue = slider.value;
+              updateStatusMessage(
+                'You opened prior context. Move the slider again before revealing another block. You can still make your final choice at any time.',
+                'warning'
+              );
             }
+          }
+        });
+
+        if (slider) {
+          slider.addEventListener('input', () => {
+            if (timedOut && timeoutSliderAdjustmentAvailable && slider.value !== timeoutSliderLockedValue) {
+              timeoutSliderAdjustmentAvailable = false;
+              slider.disabled = true;
+              finalDecisionConfidence = slider.value;
+              updateStatusMessage(
+                'Final confidence update saved. Choose Fight or Don\'t Fight, then enter your rationale.',
+                'hint'
+              );
+              return;
+            }
+
+            if (!sliderTouched && slider.value !== requiredSliderValue) {
+              sliderTouched = true;
+              updateStatusMessage(
+                stimulusLocked
+                  ? 'Confidence updated. Finish your rationale whenever you are ready.'
+                  : 'Confidence updated. You can reveal another block or commit to a final call.',
+                'hint'
+              );
+            }
+          });
+        }
+
+        if (rationaleInput && rationaleWordCount) {
+          rationaleInput.addEventListener('input', function () {
+            rationaleWordCount.textContent = `${countWords(rationaleInput.value)} words`;
           });
         }
 
         overlayButtons.forEach((button) => {
           button.addEventListener('click', function () {
+            if (stimulusLocked) return;
             if (!sliderTouched) {
               alert('Move the confidence slider before continuing.');
               return;
             }
+
             const cueId = this.dataset.cueId;
-            const now = performance.now() - experimentStart;
             const revealedCueIdsForClick = cuesTriggeredByClick(stimulus, cueId);
 
+            clearTimer();
             jsPsych.finishTrial({
               stimulus_id: stimulus.id,
+              is_tutorial: isTutorial,
               event_type: 'reveal',
               cue_id: cueId,
               reveal_group: cueRevealGroup(stimulus.cues.find((cue) => cue.id === cueId)),
               revealed_cue_ids: revealedCueIdsForClick,
               confidence: slider ? slider.value : null,
-              time: now
+              time: getElapsedSec()
             });
           });
         });
 
-        finalizeBtn.addEventListener('click', function () {
-          if (!sliderTouched) {
-            alert('Move the confidence slider before continuing.');
-            return;
-          }
-          const now = performance.now() - experimentStart;
-          jsPsych.finishTrial({
-            stimulus_id: stimulus.id,
-            event_type: 'finalize',
-            confidence: slider ? slider.value : null,
-            time: now
+        decisionButtons.forEach((button) => {
+          button.addEventListener('click', function () {
+            finalDecision = button.dataset.decision || '';
+            finalDecisionConfidence = slider ? slider.value : finalDecisionConfidence;
+
+            decisionButtons.forEach((choiceButton) => {
+              choiceButton.classList.toggle('selected', choiceButton === button);
+            });
+
+            lockStimulus({
+              showCover: timedOut,
+              isTimeout: timedOut,
+              message: timedOut
+                ? 'Time is up. Your choice is selected. Finish your explanation to continue.'
+                : ''
+            });
+
+            if (selectedDecisionLabel) selectedDecisionLabel.textContent = finalDecision;
+            if (rationaleSection) rationaleSection.hidden = false;
+            if (rationaleInput) rationaleInput.focus();
+
+            updateStatusMessage(
+              timedOut
+                ? `${finalDecision} selected after timeout. Add your rationale to continue.`
+                : `${finalDecision} selected. Add your rationale and continue to the next stimulus when ready.`,
+              timedOut ? 'warning' : 'hint'
+            );
           });
         });
+
+        if (submitDecisionBtn) {
+          submitDecisionBtn.addEventListener('click', finishDecision);
+        }
+
+        updateTimerDisplay();
+        if (trialDurationSec) {
+          timerHandle = window.setInterval(updateTimerDisplay, 250);
+        }
       }
     };
   }
-
-  function createDecisionTrial() {
-    return {
-      type: jsPsychHtmlButtonResponse,
-      choices: ['FIGHT', "DON'T FIGHT"],
-      stimulus: function () {
-        const currentConfidence =
-          revealConfidence.length > 0 ? Number(revealConfidence[revealConfidence.length - 1]) : 0;
-        finalDecisionConfidence = currentConfidence;
-        let html = buildImageWithRemovedCues(stimulus, revealedCueIds);
-
-        html += `
-          <div class="decision-panel">
-            <label for="final-confidence" style="display:block; margin-bottom:10px; font-size:32px;">Confidence</label>
-
-            <div class="slider-row" style="max-width:900px; margin:0 auto; gap:18px;">
-              <div style="text-align:center; min-width:110px;">
-                <div style="font-size:12px;">100%</div>
-                <div style="font-size:14px;">Don't Fight</div>
-              </div>
-
-              <input
-                id="final-confidence"
-                type="range"
-                min="-100"
-                max="100"
-                value="${finalDecisionConfidence}"
-                style="flex:1; height:32px;"
-              />
-
-              <div style="text-align:center; min-width:110px;">
-                <div style="font-size:12px;">100%</div>
-                <div style="font-size:14px;">Fight</div>
-              </div>
-            </div>
-
-            <div style="text-align:center; font-size:13px; margin-top:8px;">
-              Center = 0 (uncertain)
-            </div>
-
-            <div style="margin-top:20px;">
-              <label for="rationale">Rationale (20-50 words)</label><br />
-              <textarea id="rationale" rows="4" cols="70" placeholder="Explain your call here."></textarea>
-            </div>
-          </div>
-        `;
-
-        return html;
-      },
-      data: {
-        stimulus_id: stimulus.id,
-        event_type: 'decision'
-      },
-      on_load: function () {
-        const finalConfidenceInput = document.getElementById('final-confidence');
-        const rationaleInput = document.getElementById('rationale');
-
-        if (finalConfidenceInput) {
-          finalDecisionConfidence = finalConfidenceInput.value;
-          finalConfidenceInput.addEventListener('input', () => {
-            finalDecisionConfidence = finalConfidenceInput.value;
-          });
-        }
-
-        if (rationaleInput) {
-          finalDecisionRationale = rationaleInput.value;
-          rationaleInput.addEventListener('input', () => {
-            finalDecisionRationale = rationaleInput.value;
-          });
-        }
-      },
-      on_finish: function (data) {
-        data.decision = data.response === 0 ? 'FIGHT' : "DON'T FIGHT";
-        data.confidence = finalDecisionConfidence;
-        data.rationale = finalDecisionRationale;
-        data.reveal_order = JSON.stringify(revealOrder);
-        data.cues_revealed = JSON.stringify(revealedCueIds);
-        data.reveal_confidence = JSON.stringify(revealConfidence);
-        data.num_cues_revealed = revealedCueIds.length;
-        data.time = performance.now() - experimentStart;
-      }
-    };
-  };
 
   const overlayLoop = {
     timeline: [createOverlayTrial()],
@@ -902,16 +1396,11 @@ function buildCueSearchTimeline(stimulus) {
         return true;
       }
 
-      if (last.event_type === 'finalize') {
-        revealConfidence.push(last.confidence);
-        return false;
-      }
-
       return false;
     }
   };
 
-  return [overlayLoop, createDecisionTrial()];
+  return [overlayLoop];
 }
 
 const confidenceInstructionsTrial = {
@@ -919,11 +1408,33 @@ const confidenceInstructionsTrial = {
   choices: ['Continue'],
   stimulus:
     '<div class="screen-wrap"><h2>Confidence Slider Instructions</h2>' +
-    '<p>The slider measures both direction and certainty.</p>' +
+    '<p>The slider measures both direction and certainty as you reveal more information.</p>' +
     '<p><strong>-100</strong> means you are completely certain the correct call is <strong>Don\'t Fight</strong>.</p>' +
     '<p><strong>0</strong> means you are uncertain.</p>' +
     '<p><strong>100</strong> means you are completely certain the correct call is <strong>Fight</strong>.</p>' +
-    '<p>After every reveal, you must move the slider before revealing another cue or making your final decision.</p></div>'
+    '<p>After every block reveal, move the slider before opening another block. You can still commit to Fight or Don\'t Fight at any time.</p></div>'
+};
+
+const priorContextInstructionsTrial = {
+  type: jsPsychHtmlButtonResponse,
+  choices: ['Continue'],
+  stimulus:
+    '<div class="screen-wrap"><h2>Prior Context Instructions</h2>' +
+    '<p><strong>Prior Context</strong> is the fixed question-mark overlay in the top-right corner of every trial.</p>' +
+    '<p>It contains off-screen or recently elapsed information a player might still be using, even though it is not fully visible in the screenshot itself.</p>' +
+    '<p><em>Examples:</em> "Enemy Kha\'Zix was last seen bot-side 12 seconds ago." "Alistar used Flash in the previous trade." "Ornn just spent key cooldowns before the screenshot was taken."</p>' +
+    '<p>You do not have to open prior context. If you do open it, move the confidence slider again before revealing another block. You can still commit to Fight or Don\'t Fight whenever you are ready.</p></div>'
+};
+
+const landingTrial = {
+  type: jsPsychHtmlButtonResponse,
+  choices: ['Continue'],
+  stimulus:
+    '<div class="screen-wrap"><h1>Welcome to the League Decision Task</h1>' +
+    '<p>In this study, you will look at League of Legends screenshots and make quick callouts about whether your team should <strong>Fight</strong> or <strong>Don\'t Fight</strong>.</p>' +
+    '<p>You can reveal hidden blocks to gather more information, update your confidence as you go, and then give a short explanation for your final choice.</p>' +
+    '<p>Most rounds are timed, so the goal is not to find everything. The goal is to make the best call you can with limited time and limited information.</p>' +
+    '<p>You will first complete a short survey and a practice round before the live trials begin.</p></div>'
 };
 
 const surveyTrial = {
@@ -944,12 +1455,33 @@ const surveyTrial = {
 
 const experimentInstructionsTrial = {
   type: jsPsychHtmlButtonResponse,
-  choices: ['Begin'],
+  choices: ['See tutorial'],
   stimulus:
     '<div class="screen-wrap"><h2>Experiment Instructions</h2>' +
-    '<p>Each trial shows a game screenshot with some cues hidden by black boxes.</p>' +
-    '<p>Click a box to reveal that cue. After every reveal, you must update the confidence slider before revealing another cue or making your final decision.</p>' +
-    '<p>When you are ready, click <strong>Make final decision</strong>.</p></div>'
+    '<p>Each trial shows a League of Legends screenshot with several hidden <strong>blocks</strong>.</p>' +
+    '<p>You may reveal blocks one at a time to gather information. After each reveal, update the confidence slider before opening another block.</p>' +
+    '<p>The two large endpoint buttons double as your final decision buttons: choose <strong>Fight</strong> or <strong>Don\'t Fight</strong> whenever you are ready, then type a short rationale.</p>' +
+    '<p>Live trials are timed. Once the countdown reaches zero, the screenshot is fully blocked and you must make your call using only the information you already gathered.</p></div>'
+};
+
+const tutorialIntroTrial = {
+  type: jsPsychHtmlButtonResponse,
+  choices: ['Start tutorial'],
+  stimulus:
+    '<div class="screen-wrap"><h2>Tutorial Round</h2>' +
+    '<p>This practice trial is not scored. It exists to teach the flow before the timed study begins.</p>' +
+    '<p>You will reveal a few example blocks, see how confidence updates work, and finish with the same Fight / Don\'t Fight decision flow used in the live trials.</p>' +
+    '<p>The on-screen coaching text will tell you exactly what happened after each reveal and what you can do next.</p></div>'
+};
+
+const liveStudyStartTrial = {
+  type: jsPsychHtmlButtonResponse,
+  choices: ['Begin live trials'],
+  stimulus:
+    '<div class="screen-wrap"><h2>Live Trials</h2>' +
+    '<p>The practice round is complete. The scored trials now use the timed fast-decision format.</p>' +
+    `<p>Each live screenshot gives you up to <strong>${LIVE_TRIAL_DURATION_SEC} seconds</strong> to reveal only the blocks you think you need.</p>` +
+    '<p>When the timer expires, the screenshot is fully covered and you must make a Fight / Don\'t Fight decision and provide a brief rationale.</p></div>'
 };
 
 const completionTrial = {
@@ -962,21 +1494,26 @@ const completionTrial = {
     '<p>Click the button below to save your responses and finish.</p>' +
     '</div>',
   on_finish: function () {
-    const resultCsv = buildCsvResult();
+    const resultTable = buildSpreadsheetResult();
 
     if (typeof jatos !== 'undefined') {
-      jatos.endStudy(resultCsv);
+      jatos.endStudy(resultTable);
     } else {
-      downloadTextFile('league-study-results.csv', resultCsv);
+      downloadTextFile('league-study-results.tsv', resultTable);
     }
   }
 };
 
 function runParticipantExperiment() {
   const timeline = [];
-  timeline.push(confidenceInstructionsTrial);
+  timeline.push(landingTrial);
   timeline.push(surveyTrial);
+  timeline.push(confidenceInstructionsTrial);
+  timeline.push(priorContextInstructionsTrial);
   timeline.push(experimentInstructionsTrial);
+  timeline.push(tutorialIntroTrial);
+  timeline.push(...buildCueSearchTimeline(tutorialStimulus, { isTutorial: true }));
+  timeline.push(liveStudyStartTrial);
 
   stimuli.forEach((stimulus) => {
     timeline.push(...buildCueSearchTimeline(stimulus));
