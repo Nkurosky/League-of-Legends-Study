@@ -68,6 +68,11 @@ const TEAM_PREVIEWS = {
     acting_as: 'blue side',
     ally_team: ['Ambessa', 'Skarner', 'Annie', 'Ashe', 'Lulu'],
     enemy_team: ['Renekton', 'Pantheon', 'Orianna', 'Yunara', 'Milio']
+  },
+  ambessa_skarner_red: {
+    acting_as: 'red side',
+    ally_team: ['Renekton', 'Pantheon', 'Orianna', 'Yunara', 'Milio'],
+    enemy_team: ['Ambessa', 'Skarner', 'Annie', 'Ashe', 'Lulu']
   }
 };
 
@@ -80,7 +85,9 @@ const stimuli = [
   preview: TEAM_PREVIEWS.swain_diana_blue,
   baseline: {
     description:
-      'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
+      'Champion identities, lane positions, minion wave state, turrets and terrain are visible.',
+    prior_context:
+      'Abilities: all abilities except Leona W are available for this dive.'
   },
   cues: [
     { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.36%', left: '0.00%', width: '4.87%', height: '47.51%' } },
@@ -104,7 +111,9 @@ const stimuli = [
   preview: TEAM_PREVIEWS.ornn_kayn_blue,
   baseline: {
     description:
-      'Your team composition, lane positioning and current health are shown. Turrets and minion waves are visible.'
+      'Your team composition, lane positioning and current health are shown. Turrets and minion waves are visible.',
+    prior_context:
+      'Aurora died roughly 5 seconds ago. Red side and blue side both have all basic abilities off cooldown.'
   },
   cues: [
     { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.56%', left: '0.23%', width: '4.43%', height: '47.46%' } },
@@ -132,7 +141,9 @@ const stimuli = [
     preview: TEAM_PREVIEWS.ksante_talon_blue,
     baseline: {
       description:
-        'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
+        'Champion identities, lane positions, minion wave state, turrets and terrain are visible.',
+      prior_context:
+        'K\'Sante is mid-channel on Q3. Junglers started same side. Xin Zhao has all basic abilities available.'
     },
     cues: [
       { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '12.33%', left: '0.00%', width: '4.77%', height: '46.86%' } },
@@ -153,7 +164,9 @@ const stimuli = [
     preview: TEAM_PREVIEWS.ornn_kayn_blue,
     baseline: {
       description:
-        'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
+        'Champion identities, lane positions, minion wave state, turrets and terrain are visible.',
+      prior_context:
+        'No abilities have been used at this moment.'
     },
     cues: [
       { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.34%', left: '0.00%', width: '4.99%', height: '47.83%' } },
@@ -176,7 +189,9 @@ const stimuli = [
     preview: TEAM_PREVIEWS.ornn_kayn_blue,
     baseline: {
       description:
-        'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
+        'Champion identities, lane positions, minion wave state, turrets and terrain are visible.',
+      prior_context:
+        'Kayle used W roughly 5 seconds ago. Ornn used his full combo roughly 5 seconds ago. Kayn has all cooldowns available.'
     },
     cues: [
       { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.34%', left: '0.00%', width: '4.99%', height: '47.83%' } },
@@ -193,20 +208,22 @@ const stimuli = [
 {
   id: 'trial6',
   screenshot: 'assets/screenshot6.png',
-  ally_side: 'blue',
-  role_prompt: 'You are the blue-side shotcaller. What would you call here?',
-  preview: TEAM_PREVIEWS.ambessa_skarner_blue,
+  ally_side: 'red',
+  role_prompt: 'You are the red-side shotcaller. What would you call here?',
+  preview: TEAM_PREVIEWS.ambessa_skarner_red,
   baseline: {
     description:
-      'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
+      'Champion identities, lane positions, minion wave state, turrets and terrain are visible.',
+    prior_context:
+      'Renekton has all abilities off cooldown. Ambessa used Q and E roughly 8 seconds ago, and is using W now.'
   },
   cues: [
-    { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.34%', left: '0.00%', width: '4.99%', height: '47.83%' } },
-    { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '12.06%', left: '95.20%', width: '5.05%', height: '46.42%' } },
-    { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.39%', left: '31.19%', width: '15.98%', height: '20.23%' } },
-    { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
-    { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '32.48%', left: '40.93%', width: '7.50%', height: '2.50%' } },
-    { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '35.67%', left: '47.86%', width: '7.50%', height: '2.50%' } },
+    { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '12.06%', left: '95.20%', width: '5.05%', height: '46.42%' } },
+    { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '11.34%', left: '0.00%', width: '4.99%', height: '47.83%' } },
+    { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
+    { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.39%', left: '31.19%', width: '15.98%', height: '20.23%' } },
+    { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '35.67%', left: '47.86%', width: '7.50%', height: '2.50%' } },
+    { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '32.48%', left: '40.93%', width: '7.50%', height: '2.50%' } },
     { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
     { id: 'minimap', label: 'Minimap', overlay: { top: '74.14%', left: '85.60%', width: '14.36%', height: '25.76%' } }
   ]
