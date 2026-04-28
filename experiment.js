@@ -72,58 +72,58 @@ const TEAM_PREVIEWS = {
 };
 
 const stimuli = [
-  {
-    id: 'trial1',
-    screenshot: 'assets/screenshot1.png',
-    ally_side: 'blue',
-    role_prompt: 'You are the blue-side shotcaller. What would you call here?',
-    preview: TEAM_PREVIEWS.swain_diana_blue,
-    baseline: {
-      description:
-        'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
-    },
-    cues: [
-      { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.36%', left: '0.00%', width: '4.87%', height: '47.51%' } },
-      { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '12.46%', left: '95.48%', width: '4.66%', height: '47.27%' } },
-      { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.48%', left: '31.35%', width: '16.28%', height: '20.26%' } },
-      { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
-      { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '41.99%', left: '44.19%', width: '7.82%', height: '2.38%' } },
-      { id: 'enemy_health_2', label: 'Enemy HP 2', reveal_group: 'enemy_health', overlay: { top: '52.78%', left: '45.81%', width: '7.15%', height: '2.60%' } },
-      { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '7.73%', left: '28.66%', width: '7.12%', height: '1.76%' } },
-      { id: 'ally_health_2', label: 'Ally HP 2', reveal_group: 'ally_health', overlay: { top: '22.62%', left: '78.96%', width: '6.77%', height: '2.40%' } },
-      { id: 'ally_health_3', label: 'Ally HP 3', reveal_group: 'ally_health', overlay: { top: '20.77%', left: '63.18%', width: '7.61%', height: '3.00%' } },
-      { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
-      { id: 'minimap', label: 'Minimap', overlay: { top: '74.04%', left: '83.71%', width: '15.58%', height: '25.53%' } }
-    ]
+{
+  id: 'trial1',
+  screenshot: 'assets/screenshot1.png',
+  ally_side: 'blue',
+  role_prompt: 'You are the blue-side shotcaller. What would you call here?',
+  preview: TEAM_PREVIEWS.swain_diana_blue,
+  baseline: {
+    description:
+      'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
   },
-  {
-    id: 'trial2',
-    screenshot: 'assets/screenshot2.png',
-    ally_side: 'blue',
-    role_prompt: 'You are the blue-side shotcaller. What would you call here?',
-    preview: TEAM_PREVIEWS.ornn_kayn_blue,
-    baseline: {
-      description:
-        'Your team composition, lane positioning and current health are shown. Turrets and minion waves are visible.'
-    },
-    cues: [
-      { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.56%', left: '0.23%', width: '4.43%', height: '47.46%' } },
-      { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '11.75%', left: '95.28%', width: '4.48%', height: '48.01%' } },
-      { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.19%', left: '30.19%', width: '17.54%', height: '20.22%' } },
-      { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
-      { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '15.55%', left: '44.46%', width: '6.89%', height: '2.17%' } },
-      { id: 'enemy_health_2', label: 'Enemy HP 2', reveal_group: 'enemy_health', overlay: { top: '22.84%', left: '43.59%', width: '7.82%', height: '2.38%' } },
-      { id: 'enemy_health_3', label: 'Enemy HP 3', reveal_group: 'enemy_health', overlay: { top: '24.08%', left: '48.28%', width: '7.82%', height: '2.38%' } },
-      { id: 'enemy_health_4', label: 'Enemy HP 4', reveal_group: 'enemy_health', overlay: { top: '22.19%', left: '48.10%', width: '7.04%', height: '2.17%' } },
-      { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '50.27%', left: '40.21%', width: '7.12%', height: '1.76%' } },
-      { id: 'ally_health_2', label: 'Ally HP 2', reveal_group: 'ally_health', overlay: { top: '21.92%', left: '81.63%', width: '6.54%', height: '1.55%' } },
-      { id: 'ally_health_3', label: 'Ally HP 3', reveal_group: 'ally_health', overlay: { top: '53.82%', left: '66.20%', width: '6.54%', height: '2.17%' } },
-      { id: 'ally_health_4', label: 'Ally HP 4', reveal_group: 'ally_health', overlay: { top: '90.31%', left: '16.71%', width: '7.12%', height: '2.59%' } },
-      { id: 'ally_health_5', label: 'Ally HP 5', reveal_group: 'ally_health', overlay: { top: '45.07%', left: '23.13%', width: '7.81%', height: '1.76%' } },
-      { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
-      { id: 'minimap', label: 'Minimap', overlay: { top: '74.04%', left: '83.71%', width: '15.58%', height: '25.53%' } }
-    ]
+  cues: [
+    { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.36%', left: '0.00%', width: '4.87%', height: '47.51%' } },
+    { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '12.46%', left: '95.48%', width: '4.66%', height: '47.27%' } },
+    { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.48%', left: '31.35%', width: '16.28%', height: '20.26%' } },
+    { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
+    { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '42.17%', left: '44.22%', width: '7.82%', height: '2.38%' } },
+    { id: 'enemy_health_2', label: 'Enemy HP 2', reveal_group: 'enemy_health', overlay: { top: '52.76%', left: '45.78%', width: '7.26%', height: '3.00%' } },
+    { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '7.72%', left: '28.80%', width: '7.12%', height: '2.06%' } },
+    { id: 'ally_health_2', label: 'Ally HP 2', reveal_group: 'ally_health', overlay: { top: '22.62%', left: '78.96%', width: '6.77%', height: '2.40%' } },
+    { id: 'ally_health_3', label: 'Ally HP 3', reveal_group: 'ally_health', overlay: { top: '21.06%', left: '63.14%', width: '7.61%', height: '2.70%' } },
+    { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
+    { id: 'minimap', label: 'Minimap', overlay: { top: '74.01%', left: '85.80%', width: '13.43%', height: '25.62%' } }
+  ]
+},
+{
+  id: 'trial2',
+  screenshot: 'assets/screenshot2.png',
+  ally_side: 'blue',
+  role_prompt: 'You are the blue-side shotcaller. What would you call here?',
+  preview: TEAM_PREVIEWS.ornn_kayn_blue,
+  baseline: {
+    description:
+      'Your team composition, lane positioning and current health are shown. Turrets and minion waves are visible.'
   },
+  cues: [
+    { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.56%', left: '0.23%', width: '4.43%', height: '47.46%' } },
+    { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '11.75%', left: '95.28%', width: '4.48%', height: '48.01%' } },
+    { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.08%', left: '31.17%', width: '16.50%', height: '20.69%' } },
+    { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
+    { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '15.55%', left: '44.46%', width: '6.89%', height: '2.17%' } },
+    { id: 'enemy_health_2', label: 'Enemy HP 2', reveal_group: 'enemy_health', overlay: { top: '22.84%', left: '43.59%', width: '7.82%', height: '2.38%' } },
+    { id: 'enemy_health_3', label: 'Enemy HP 3', reveal_group: 'enemy_health', overlay: { top: '24.06%', left: '48.25%', width: '7.93%', height: '2.58%' } },
+    { id: 'enemy_health_4', label: 'Enemy HP 4', reveal_group: 'enemy_health', overlay: { top: '22.19%', left: '48.10%', width: '7.04%', height: '2.17%' } },
+    { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '50.23%', left: '40.13%', width: '7.17%', height: '2.06%' } },
+    { id: 'ally_health_2', label: 'Ally HP 2', reveal_group: 'ally_health', overlay: { top: '21.90%', left: '81.53%', width: '6.59%', height: '1.85%' } },
+    { id: 'ally_health_3', label: 'Ally HP 3', reveal_group: 'ally_health', overlay: { top: '54.10%', left: '66.20%', width: '6.54%', height: '2.17%' } },
+    { id: 'ally_health_4', label: 'Ally HP 4', reveal_group: 'ally_health', overlay: { top: '89.07%', left: '17.07%', width: '7.12%', height: '2.59%' } },
+    { id: 'ally_health_5', label: 'Ally HP 5', reveal_group: 'ally_health', overlay: { top: '45.04%', left: '23.12%', width: '7.81%', height: '2.06%' } },
+    { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
+    { id: 'minimap', label: 'Minimap', overlay: { top: '73.99%', left: '84.90%', width: '14.33%', height: '26.41%' } }
+  ]
+},
   {
     id: 'trial3',
     screenshot: 'assets/screenshot3.png',
@@ -190,27 +190,27 @@ const stimuli = [
       { id: 'minimap', label: 'Minimap', overlay: { top: '74.10%', left: '85.48%', width: '13.80%', height: '25.75%' } }
     ]
   },
-  {
-    id: 'trial6',
-    screenshot: 'assets/screenshot6.png',
-    ally_side: 'blue',
-    role_prompt: 'You are the blue-side shotcaller. What would you call here?',
-    preview: TEAM_PREVIEWS.ambessa_skarner_blue,
-    baseline: {
-      description:
-        'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
-    },
-    cues: [
-      { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.34%', left: '0.00%', width: '4.99%', height: '47.83%' } },
-      { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '12.06%', left: '95.20%', width: '5.05%', height: '46.42%' } },
-      { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.39%', left: '31.19%', width: '15.98%', height: '20.23%' } },
-      { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
-      { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '34.55%', left: '39.70%', width: '7.50%', height: '2.50%' } },
-      { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '36.65%', left: '47.15%', width: '7.50%', height: '2.50%' } },
-      { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
-      { id: 'minimap', label: 'Minimap', overlay: { top: '74.14%', left: '85.60%', width: '14.36%', height: '25.76%' } }
-    ]
-  }
+{
+  id: 'trial6',
+  screenshot: 'assets/screenshot6.png',
+  ally_side: 'blue',
+  role_prompt: 'You are the blue-side shotcaller. What would you call here?',
+  preview: TEAM_PREVIEWS.ambessa_skarner_blue,
+  baseline: {
+    description:
+      'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
+  },
+  cues: [
+    { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.34%', left: '0.00%', width: '4.99%', height: '47.83%' } },
+    { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '12.06%', left: '95.20%', width: '5.05%', height: '46.42%' } },
+    { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.39%', left: '31.19%', width: '15.98%', height: '20.23%' } },
+    { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
+    { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '32.48%', left: '40.93%', width: '7.50%', height: '2.50%' } },
+    { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '35.67%', left: '47.86%', width: '7.50%', height: '2.50%' } },
+    { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
+    { id: 'minimap', label: 'Minimap', overlay: { top: '74.14%', left: '85.60%', width: '14.36%', height: '25.76%' } }
+  ]
+}
 ];
 
 // High‑resolution timer for timestamps.
@@ -700,6 +700,19 @@ function renderCalibrationApp() {
 
   function formatStimulusForCode(stimulus, baseIndent = '') {
     const innerIndent = baseIndent + '  ';
+    const preview = getStimulusPreview(stimulus);
+    const previewLines = [];
+    if (preview.ally_team.length || preview.enemy_team.length) {
+      const formatChampionArray = (champions) => `[${champions.map(codeString).join(', ')}]`;
+      previewLines.push(
+        `${innerIndent}preview: {`,
+        `${innerIndent}  acting_as: ${codeString(preview.acting_as)},`,
+        `${innerIndent}  ally_team: ${formatChampionArray(preview.ally_team)},`,
+        `${innerIndent}  enemy_team: ${formatChampionArray(preview.enemy_team)}`,
+        `${innerIndent}},`
+      );
+    }
+
     const baselineLines = [
       `${innerIndent}baseline: {`,
       `${innerIndent}  description:`,
@@ -721,6 +734,7 @@ function renderCalibrationApp() {
       `${innerIndent}screenshot: ${codeString(stimulus.screenshot)},`,
       `${innerIndent}ally_side: ${codeString(stimulus.ally_side ?? 'blue')},`,
       `${innerIndent}role_prompt: ${codeString(stimulus.role_prompt ?? '')},`,
+      ...previewLines,
       ...baselineLines,
       formatCueArrayForCode(stimulus.cues, innerIndent),
       `${baseIndent}}`
@@ -1022,7 +1036,7 @@ function buildCueSearchTimeline(stimulus, options = {}) {
 
   function getBaseStatusMessage() {
     if (timedOut) {
-      return 'Time expired. The screenshot is now blocked. Choose Fight or Don\'t Fight, then enter a short rationale.';
+      return 'Time is up. The screenshot is blocked. Make your choice, then explain your answer.';
     }
 
     if (revealOrder.length === 0) {
@@ -1324,7 +1338,7 @@ function buildCueSearchTimeline(stimulus, options = {}) {
               message: 'Time is up. Make your choice, then explain your answer.'
             });
             updateStatusMessage(
-              'Time expired. The screenshot is now blocked. You may make one last confidence change, then choose Fight or Don\'t Fight and enter your rationale.',
+              'Time is up. The screenshot is blocked. You may make one last confidence change, then choose Fight or Don\'t Fight and explain your answer.',
               'warning'
             );
           }
