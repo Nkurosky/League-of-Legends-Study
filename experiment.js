@@ -5,7 +5,7 @@
  * using jsPsych. It improves the user interface with cleaner layouts,
  * explanatory instructions for the confidence slider, a built‑in survey
  * shown before the task, and more explicit control over how the
- * confidence slider is updated. The slider now ranges from –100 to 100
+ * confidence slider is updated. The slider now ranges from 100 to 100
  * with descriptive labels for each end and the midpoint. Participants
  * must move the slider after each cue reveal before they can reveal
  * another cue or make a final decision, preventing accidental clicks
@@ -48,12 +48,36 @@ const jsPsych = initJsPsych({
  *   'ally_health'    — all ally HP bars at once
  *   'enemy_health'   — all enemy HP bars at once
  */
+const TEAM_PREVIEWS = {
+  swain_diana_blue: {
+    acting_as: 'blue side',
+    ally_team: ['Swain', 'Diana', 'Yasuo', 'Caitlyn', 'Seraphine'],
+    enemy_team: ['Mordekaiser', 'Ekko', 'Corki', 'Ezreal', 'Leona']
+  },
+  ornn_kayn_blue: {
+    acting_as: 'blue side',
+    ally_team: ['Ornn', 'Kayn', 'Talon', 'Mel', 'Alistar'],
+    enemy_team: ['Kayle', "Kha'Zix", 'Aurora', 'Xayah', 'Rakan']
+  },
+  ksante_talon_blue: {
+    acting_as: 'blue side',
+    ally_team: ["K'Sante", 'Talon', 'Fizz', 'Varus', 'Thresh'],
+    enemy_team: ['Xin Zhao', 'Lee Sin', 'Jayce', 'Corki', 'Veigar']
+  },
+  ambessa_skarner_blue: {
+    acting_as: 'blue side',
+    ally_team: ['Ambessa', 'Skarner', 'Annie', 'Ashe', 'Lulu'],
+    enemy_team: ['Renekton', 'Pantheon', 'Orianna', 'Yunara', 'Milio']
+  }
+};
+
 const stimuli = [
   {
     id: 'trial1',
     screenshot: 'assets/screenshot1.png',
     ally_side: 'blue',
     role_prompt: 'You are the blue-side shotcaller. What would you call here?',
+    preview: TEAM_PREVIEWS.swain_diana_blue,
     baseline: {
       description:
         'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
@@ -77,6 +101,7 @@ const stimuli = [
     screenshot: 'assets/screenshot2.png',
     ally_side: 'blue',
     role_prompt: 'You are the blue-side shotcaller. What would you call here?',
+    preview: TEAM_PREVIEWS.ornn_kayn_blue,
     baseline: {
       description:
         'Your team composition, lane positioning and current health are shown. Turrets and minion waves are visible.'
@@ -104,6 +129,7 @@ const stimuli = [
     screenshot: 'assets/screenshot3.png',
     ally_side: 'blue',
     role_prompt: 'You are the blue-side shotcaller. What would you call here?',
+    preview: TEAM_PREVIEWS.ksante_talon_blue,
     baseline: {
       description:
         'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
@@ -124,6 +150,7 @@ const stimuli = [
     screenshot: 'assets/screenshot4.png',
     ally_side: 'blue',
     role_prompt: 'You are the blue-side shotcaller. What would you call here?',
+    preview: TEAM_PREVIEWS.ornn_kayn_blue,
     baseline: {
       description:
         'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
@@ -146,6 +173,7 @@ const stimuli = [
     screenshot: 'assets/screenshot5.png',
     ally_side: 'blue',
     role_prompt: 'You are the blue-side shotcaller. What would you call here?',
+    preview: TEAM_PREVIEWS.ornn_kayn_blue,
     baseline: {
       description:
         'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
@@ -167,6 +195,7 @@ const stimuli = [
     screenshot: 'assets/screenshot6.png',
     ally_side: 'blue',
     role_prompt: 'You are the blue-side shotcaller. What would you call here?',
+    preview: TEAM_PREVIEWS.ambessa_skarner_blue,
     baseline: {
       description:
         'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
@@ -176,31 +205,10 @@ const stimuli = [
       { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '12.06%', left: '95.20%', width: '5.05%', height: '46.42%' } },
       { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.39%', left: '31.19%', width: '15.98%', height: '20.23%' } },
       { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
-      { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '32.80%', left: '48.40%', width: '7.50%', height: '2.50%' } },
-      { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '45.20%', left: '60.20%', width: '7.50%', height: '2.50%' } },
+      { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '34.55%', left: '39.70%', width: '7.50%', height: '2.50%' } },
+      { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '36.65%', left: '47.15%', width: '7.50%', height: '2.50%' } },
       { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
       { id: 'minimap', label: 'Minimap', overlay: { top: '74.14%', left: '85.60%', width: '14.36%', height: '25.76%' } }
-    ]
-  },
-  {
-    id: 'trial7',
-    screenshot: 'assets/screenshot7.png',
-    ally_side: 'blue',
-    role_prompt: 'You are the blue-side shotcaller. What would you call here?',
-    baseline: {
-      description:
-        'Champion identities, lane positions, minion wave state, turrets and terrain are visible.'
-    },
-    cues: [
-      { id: 'ally_portrait', label: 'Ally Champion Pool', reveal_group: 'ally_portrait', overlay: { top: '11.34%', left: '0.00%', width: '4.99%', height: '47.83%' } },
-      { id: 'enemy_portrait', label: 'Enemy Champion Pool', reveal_group: 'enemy_portrait', overlay: { top: '11.46%', left: '95.53%', width: '4.15%', height: '47.57%' } },
-      { id: 'ally_items', label: 'Ally Items', reveal_group: 'ally_items', overlay: { top: '79.39%', left: '31.53%', width: '15.65%', height: '20.23%' } },
-      { id: 'enemy_items', label: 'Enemy Items', reveal_group: 'enemy_items', overlay: { top: '79.16%', left: '53.15%', width: '15.70%', height: '20.41%' } },
-      { id: 'ally_health_1', label: 'Ally HP 1', reveal_group: 'ally_health', overlay: { top: '21.51%', left: '38.23%', width: '7.50%', height: '2.50%' } },
-      { id: 'ally_health_2', label: 'Ally HP 2', reveal_group: 'ally_health', overlay: { top: '18.46%', left: '43.81%', width: '7.50%', height: '2.50%' } },
-      { id: 'enemy_health_1', label: 'Enemy HP 1', reveal_group: 'enemy_health', overlay: { top: '45.30%', left: '46.00%', width: '7.50%', height: '2.50%' } },
-      { id: 'scoreboard', label: 'Scoreboard', overlay: { top: '0.00%', left: '22.03%', width: '56.73%', height: '4.65%' } },
-      { id: 'minimap', label: 'Minimap', overlay: { top: '74.07%', left: '85.26%', width: '14.02%', height: '26.33%' } }
     ]
   }
 ];
@@ -271,7 +279,8 @@ const tutorialStimulusSeed = {
   is_tutorial: true,
   screenshot: 'assets/screenshot2.png',
   ally_side: 'blue',
-  role_prompt: 'Tutorial round: practice revealing blocks and making a fast call before the live study begins.',
+  role_prompt: 'Tutorial round: practice the task flow.',
+  preview: TEAM_PREVIEWS.ornn_kayn_blue,
   baseline: {
     description:
       'This warm-up round is only for practice. Learn how block reveals, confidence updates, prior context, and final decisions work before the timed trials start.',
@@ -376,6 +385,71 @@ function joinNaturalLanguage(items) {
   if (items.length <= 1) return items[0] || '';
   if (items.length === 2) return `${items[0]} and ${items[1]}`;
   return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
+}
+
+function getStimulusPreview(stimulus) {
+  const fallbackSide = stimulus?.ally_side === 'red' ? 'red side' : 'blue side';
+  return {
+    acting_as: stimulus?.preview?.acting_as || fallbackSide,
+    ally_team: Array.isArray(stimulus?.preview?.ally_team) ? stimulus.preview.ally_team : [],
+    enemy_team: Array.isArray(stimulus?.preview?.enemy_team) ? stimulus.preview.enemy_team : []
+  };
+}
+
+function championListMarkup(champions) {
+  if (!champions.length) {
+    return '<p class="text-muted">Champion list pending review.</p>';
+  }
+
+  return `
+    <div class="champion-pill-list">
+      ${champions.map((champion) => `<span class="champion-pill">${escapeHtml(champion)}</span>`).join('')}
+    </div>
+  `;
+}
+
+function buildTrialPreview(stimulus, options = {}) {
+  const preview = getStimulusPreview(stimulus);
+  const isTutorial = options.isTutorial === true || Boolean(stimulus.is_tutorial);
+  const actingAs = preview.acting_as;
+
+  return {
+    type: jsPsychHtmlButtonResponse,
+    choices: [isTutorial ? 'Start practice round' : 'Start trial'],
+    stimulus: `
+      <div class="screen-wrap trial-preview-screen">
+        <div class="trial-preview-card">
+          <div class="trial-preview-kicker">${isTutorial ? 'Practice preview' : 'Trial preview'}</div>
+          <h2>Get ready to make the call</h2>
+          <p class="trial-preview-lede">
+            You will be the shot caller for the <strong>${escapeHtml(actingAs)}</strong>.
+            You will decide whether to <strong>Fight</strong> or <strong>Don't Fight</strong>.
+          </p>
+          <div class="preview-teams">
+            <section class="preview-team preview-team-ally">
+              <h3>Your team</h3>
+              ${championListMarkup(preview.ally_team)}
+            </section>
+            <section class="preview-team preview-team-enemy">
+              <h3>Enemy team</h3>
+              ${championListMarkup(preview.enemy_team)}
+            </section>
+          </div>
+          <p class="trial-preview-note">
+            Review the teams now so the screenshot can be used for the actual decision.
+          </p>
+        </div>
+      </div>
+    `,
+    data: {
+      stimulus_id: stimulus.id,
+      phase: 'trial_preview',
+      is_tutorial: isTutorial,
+      acting_as: actingAs,
+      ally_team: preview.ally_team.join(', '),
+      enemy_team: preview.enemy_team.join(', ')
+    }
+  };
 }
 
 function formatRevealSummary(stimulus, revealedIds) {
@@ -1004,20 +1078,15 @@ function buildCueSearchTimeline(stimulus, options = {}) {
         let html = `
           <div class="screen-wrap">
             <div class="trial-hero ${isTutorial ? 'tutorial-hero' : ''}">
-              <div class="trial-meta">
-                <div class="trial-chip">${isTutorial ? 'Tutorial Run' : 'Timed Trial'}</div>
+              <div class="trial-hero-row">
+                <div class="trial-hero-spacer" aria-hidden="true"></div>
+                <h3>${escapeHtml(stimulus.role_prompt)}</h3>
                 <div class="trial-chip ${trialDurationSec ? 'trial-chip-timer' : 'trial-chip-practice'}">
                   ${trialDurationSec
-                    ? `Decision window: <span id="trial-timer-value">${trialDurationSec}s</span>`
-                    : 'Practice mode: no countdown'}
+                    ? `Timer: <span id="trial-timer-value">${trialDurationSec}s</span>`
+                    : 'Practice'}
                 </div>
               </div>
-              <h3>${escapeHtml(stimulus.role_prompt)}</h3>
-              <p class="trial-subcopy">
-                ${isTutorial
-                  ? 'This round is not scored. Use it to learn the flow of block reveals, confidence updates, prior context, and final decisions.'
-                  : 'These live trials are about making a quick read. Reveal only the information you need, then commit to a call before the window closes.'}
-              </p>
             </div>
 
             <div class="stimulus-stage">
@@ -1047,7 +1116,7 @@ function buildCueSearchTimeline(stimulus, options = {}) {
                 <div id="stimulus-lock-cover" class="stimulus-lock-cover" ${stimulusLocked ? '' : 'hidden'}>
                   <div class="stimulus-lock-copy" id="stimulus-lock-copy">
                     ${timedOut
-                      ? 'Time expired. Commit to Fight or Don\'t Fight, then explain your reasoning.'
+                      ? 'Time is up. Make your choice, then explain your answer.'
                       : ''}
                   </div>
                 </div>
@@ -1060,11 +1129,6 @@ function buildCueSearchTimeline(stimulus, options = {}) {
             <div class="decision-panel">
               <div class="decision-panel-header">
                 <label for="confidence-slider" class="decision-panel-title">Confidence</label>
-                <div class="decision-panel-meta">
-                  ${trialDurationSec
-                    ? 'The live screenshot locks when the timer reaches 0.'
-                    : 'Practice flow: reveal, update confidence, then decide whenever you are ready.'}
-                </div>
               </div>
 
               <div class="slider-row decision-slider-row">
@@ -1074,7 +1138,6 @@ function buildCueSearchTimeline(stimulus, options = {}) {
                   class="decision-choice decision-choice-left"
                   data-decision="DON\'T FIGHT"
                 >
-                  <span class="decision-percent">100%</span>
                   <span class="decision-label">Don\'t Fight</span>
                 </button>
 
@@ -1093,7 +1156,6 @@ function buildCueSearchTimeline(stimulus, options = {}) {
                   class="decision-choice decision-choice-right"
                   data-decision="FIGHT"
                 >
-                  <span class="decision-percent">100%</span>
                   <span class="decision-label">Fight</span>
                 </button>
               </div>
@@ -1412,7 +1474,7 @@ const confidenceInstructionsTrial = {
     '<p><strong>-100</strong> means you are completely certain the correct call is <strong>Don\'t Fight</strong>.</p>' +
     '<p><strong>0</strong> means you are uncertain.</p>' +
     '<p><strong>100</strong> means you are completely certain the correct call is <strong>Fight</strong>.</p>' +
-    '<p>After every block reveal, move the slider before opening another block. You can still commit to Fight or Don\'t Fight at any time.</p></div>'
+    '<p>After every reveal, move the slider before opening another block. You can still commit to Fight or Don\'t Fight at any time.</p></div>'
 };
 
 const priorContextInstructionsTrial = {
@@ -1455,7 +1517,7 @@ const surveyTrial = {
 
 const experimentInstructionsTrial = {
   type: jsPsychHtmlButtonResponse,
-  choices: ['See tutorial'],
+  choices: ['Continue'],
   stimulus:
     '<div class="screen-wrap"><h2>Experiment Instructions</h2>' +
     '<p>Each trial shows a League of Legends screenshot with several hidden <strong>blocks</strong>.</p>' +
@@ -1507,15 +1569,17 @@ const completionTrial = {
 function runParticipantExperiment() {
   const timeline = [];
   timeline.push(landingTrial);
+  timeline.push(experimentInstructionsTrial);
   timeline.push(surveyTrial);
   timeline.push(confidenceInstructionsTrial);
   timeline.push(priorContextInstructionsTrial);
-  timeline.push(experimentInstructionsTrial);
   timeline.push(tutorialIntroTrial);
+  timeline.push(buildTrialPreview(tutorialStimulus, { isTutorial: true }));
   timeline.push(...buildCueSearchTimeline(tutorialStimulus, { isTutorial: true }));
   timeline.push(liveStudyStartTrial);
 
   stimuli.forEach((stimulus) => {
+    timeline.push(buildTrialPreview(stimulus));
     timeline.push(...buildCueSearchTimeline(stimulus));
   });
 
