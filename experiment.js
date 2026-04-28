@@ -781,6 +781,17 @@ function renderCalibrationApp() {
           </div>
         </div>
         <div class="editor-panel">
+          <h4>Prior context</h4>
+          <label for="prior-context-editor">Participant-facing prior context for ${escapeHtml(stimulus.id)}</label>
+          <textarea
+            id="prior-context-editor"
+            class="editor-textarea"
+            rows="5"
+            placeholder="Type the prior context for this stimulus..."
+          >${escapeHtml(stimulus?.baseline?.prior_context || '')}</textarea>
+          <p class="hint">Leave blank to use the default fallback. Changes here update the export text below.</p>
+        </div>
+        <div class="editor-panel">
           <h4>Selected cue</h4>
           <div id="selected-cue-readout">${activeCueId || 'None selected'}</div>
           <textarea id="overlay-output" class="copy-output">${currentStimulusOverlayCode()}</textarea>
@@ -791,6 +802,7 @@ function renderCalibrationApp() {
 
     const container = document.getElementById('calibration-container');
     const output = document.getElementById('overlay-output');
+    const priorContextEditor = document.getElementById('prior-context-editor');
 
     let outputSyncFrame = null;
 
@@ -847,6 +859,19 @@ function renderCalibrationApp() {
       output.value = allStimuliOverlayCode();
       downloadTextFile('all-stimuli-overlays.js', output.value);
     };
+
+    if (priorContextEditor) {
+      priorContextEditor.addEventListener('input', () => {
+        const nextPriorContext = priorContextEditor.value.trim();
+        if (!stimulus.baseline) stimulus.baseline = {};
+        if (nextPriorContext) {
+          stimulus.baseline.prior_context = nextPriorContext;
+        } else {
+          delete stimulus.baseline.prior_context;
+        }
+        scheduleOutputSync();
+      });
+    }
 
     const boxes = container.querySelectorAll('.calibration-box');
 
@@ -1261,7 +1286,7 @@ function buildCueSearchTimeline(stimulus, options = {}) {
           clearTimer();
           overlayButtons.forEach((button) => {
             button.disabled = true;
-            button.classList.add('revealed');
+            button.classList.add('locked');
           });
           if (slider && options.freezeSlider) {
             slider.disabled = true;
