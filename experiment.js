@@ -18,7 +18,12 @@
 const EDIT_MODE = new URLSearchParams(window.location.search).get('edit') === '1';
 const app = document.getElementById('jspsych-target');
 const jsPsych = initJsPsych({
-  display_element: 'jspsych-target'
+  display_element: 'jspsych-target',
+  on_data_update: function (data) {
+    if (!EDIT_MODE) {
+      persistAutosave('data_update', data);
+    }
+  }
 });
 
 /*
@@ -655,6 +660,103 @@ function buildSpreadsheetResult() {
   ].join(RESULT_LINE_DELIMITER);
 }
 
+let autosaveSequence = 0;
+let autosaveQueue = Promise.resolve();
+
+function getAutosaveStorageKey() {
+  const metadata = getJatosMetadata();
+  const studyResultId = metadata.study_result_id || metadata.component_result_id;
+  const participantKey = studyResultId || window.location.pathname.replace(/[^\w-]+/g, '_') || 'local';
+  return `league-study-autosave-${participantKey}`;
+}
+
+function buildAutosaveSnapshot(reason = 'autosave', latestRow = null) {
+  const rows = jsPsych.data.get().values();
+  return {
+    kind: 'league_decision_task_autosave',
+    reason,
+    sequence: autosaveSequence,
+    saved_at: new Date().toISOString(),
+    metadata: getJatosMetadata(),
+    completed_rows: rows.length,
+    latest_row: latestRow,
+    rows,
+    decision_tsv: buildSpreadsheetResult()
+  };
+}
+
+function submitJatosAutosave(payload) {
+  if (typeof jatos === 'undefined') return;
+
+  autosaveQueue = autosaveQueue
+    .catch(() => {})
+    .then(() => new Promise((resolve) => {
+      let settled = false;
+      const done = () => {
+        if (settled) return;
+        settled = true;
+        resolve();
+      };
+
+      window.setTimeout(done, 5000);
+
+      try {
+        if (typeof jatos.submitResultData === 'function') {
+          jatos.submitResultData(payload, done, done);
+        } else if (typeof jatos.appendResultData === 'function') {
+          jatos.appendResultData(`${payload}\n`, done, done);
+        } else {
+          done();
+        }
+      } catch (err) {
+        done();
+      }
+    }));
+}
+
+function persistAutosave(reason = 'autosave', latestRow = null) {
+  autosaveSequence += 1;
+  const snapshot = buildAutosaveSnapshot(reason, latestRow);
+  const payload = JSON.stringify(snapshot);
+
+  try {
+    window.localStorage.setItem(getAutosaveStorageKey(), payload);
+  } catch (err) {
+    // Browser storage can fail in private mode or if quota is exceeded; JATOS still receives updates.
+  }
+
+  submitJatosAutosave(payload);
+}
+
+function finishStudyWithResults() {
+  const resultTable = buildSpreadsheetResult();
+  persistAutosave('final_submit');
+
+  if (typeof jatos !== 'undefined') {
+    autosaveQueue.finally(() => {
+      try {
+        jatos.endStudy(resultTable);
+      } catch (err) {
+        jatos.endStudy();
+      }
+    });
+  } else {
+    downloadTextFile('league-study-results.tsv', resultTable);
+  }
+}
+
+window.addEventListener('beforeunload', () => {
+  if (!EDIT_MODE) {
+    persistAutosave('beforeunload');
+  }
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (!EDIT_MODE && document.visibilityState === 'hidden') {
+    persistAutosave('visibility_hidden');
+  }
+});
+
 function renderCalibrationApp() {
   let currentStimulusIndex = 0;
   let activeCueId = null;
@@ -1132,7 +1234,7 @@ function buildCueSearchTimeline(stimulus, options = {}) {
         const statusMessage = getBaseStatusMessage();
 
         let html = `
-          <div class="screen-wrap">
+          <div class="screen-wrap trial-screen-wrap">
             <div class="trial-hero ${isTutorial ? 'tutorial-hero' : ''}">
               <div class="trial-hero-row">
                 <div class="trial-hero-spacer" aria-hidden="true"></div>
@@ -1612,13 +1714,7 @@ const completionTrial = {
     '<p>Click the button below to save your responses and finish.</p>' +
     '</div>',
   on_finish: function () {
-    const resultTable = buildSpreadsheetResult();
-
-    if (typeof jatos !== 'undefined') {
-      jatos.endStudy(resultTable);
-    } else {
-      downloadTextFile('league-study-results.tsv', resultTable);
-    }
+    finishStudyWithResults();
   }
 };
 
